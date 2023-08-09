@@ -15,13 +15,14 @@ public class FrontController extends HttpServlet {
 
     private static void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String command = req.getParameter("command");
-        Command controller = ControllerFactory.INSTANCE.getController(command);
+        Command controller = AppContextListener.getContext().getBean(command, Command.class);
+
         String page;
         try {
             page = controller.process(req);
         } catch (Exception e) {
             log.error(e);
-            Command error = ControllerFactory.INSTANCE.getController("error");
+            Command error = AppContextListener.getContext().getBean("error", Command.class);
             page = error.process(req);
         }
         req.getRequestDispatcher(page).forward(req, resp);

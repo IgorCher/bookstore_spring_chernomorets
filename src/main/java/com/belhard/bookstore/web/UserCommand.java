@@ -5,7 +5,9 @@ import com.belhard.bookstore.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Controller;
 
+@Controller("user")
 @RequiredArgsConstructor
 @Log4j2
 public class UserCommand implements Command {

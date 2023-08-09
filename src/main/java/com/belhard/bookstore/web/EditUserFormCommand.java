@@ -4,7 +4,9 @@ import com.belhard.bookstore.data.dto.UserDto;
 import com.belhard.bookstore.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 
+@Controller("edit_user_form")
 @RequiredArgsConstructor
 public class EditUserFormCommand implements Command {
     public final UserService userService;

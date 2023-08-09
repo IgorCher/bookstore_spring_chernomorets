@@ -5,7 +5,9 @@ import com.belhard.bookstore.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Controller;
 
+@Controller ("book")
 @RequiredArgsConstructor
 @Log4j2
 public class BookCommand implements Command {

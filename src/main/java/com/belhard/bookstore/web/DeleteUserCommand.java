@@ -4,9 +4,10 @@ import com.belhard.bookstore.data.dto.UserDto;
 import com.belhard.bookstore.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
-
+@Controller("delete_user")
 @RequiredArgsConstructor
 public class DeleteUserCommand implements Command {
     public final UserService userService;

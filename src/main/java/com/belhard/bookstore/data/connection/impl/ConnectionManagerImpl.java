@@ -1,25 +1,25 @@
 package com.belhard.bookstore.data.connection.impl;
 
 import com.belhard.bookstore.data.connection.ConnectionManager;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.io.Closeable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+@Component
 public class ConnectionManagerImpl implements Closeable, ConnectionManager {
-    private final String url;
-    private final String login;
-    private final String password;
-    private final String driver;
+    @Value("${db.url}")
+    private String url;
+    @Value("${db.login}")
+    private String login;
+    @Value("${db.password}")
+    private String password;
+    @Value("${db.driver}")
+    private String driver;
     private Connection connection;
-
-    public ConnectionManagerImpl(String url, String login, String password, String driver) {
-        this.url = url;
-        this.login = login;
-        this.password = password;
-        this.driver = driver;
-    }
 
     @Override
     public Connection getConnection() {

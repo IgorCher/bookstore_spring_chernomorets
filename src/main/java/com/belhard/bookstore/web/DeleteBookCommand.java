@@ -4,9 +4,10 @@ import com.belhard.bookstore.data.dto.BookDto;
 import com.belhard.bookstore.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
-
+@Controller("delete_book")
 @RequiredArgsConstructor
 public class DeleteBookCommand implements Command {
     public final BookService bookService;

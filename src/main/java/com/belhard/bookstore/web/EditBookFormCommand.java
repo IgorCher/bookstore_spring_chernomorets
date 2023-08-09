@@ -4,7 +4,9 @@ import com.belhard.bookstore.data.dto.BookDto;
 import com.belhard.bookstore.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 
+@Controller("edit_book_form")
 @RequiredArgsConstructor
 public class EditBookFormCommand implements Command {
     public final BookService bookService;
