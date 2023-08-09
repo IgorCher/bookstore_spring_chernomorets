@@ -11,7 +11,7 @@ public class ConfigurationManagerImpl implements ConfigurationManager {
 
     static {
         properties = new Properties();
-        try (InputStream in = ConfigurationManagerImpl.class.getClassLoader().getResourceAsStream("database.properties")){
+        try (InputStream in = ConfigurationManagerImpl.class.getClassLoader().getResourceAsStream("application.properties")){
             properties.load(in);
         } catch (IOException e) {
             throw new RuntimeException(e);
