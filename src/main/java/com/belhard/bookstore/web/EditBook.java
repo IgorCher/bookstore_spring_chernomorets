@@ -8,7 +8,7 @@ import lombok.extern.log4j.Log4j2;
 
 @RequiredArgsConstructor
 @Log4j2
-public class EditBook implements Controller {
+public class EditBook implements Command {
     public final BookService bookService;
 
     @Override

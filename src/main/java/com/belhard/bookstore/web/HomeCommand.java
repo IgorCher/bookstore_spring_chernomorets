@@ -2,9 +2,9 @@ package com.belhard.bookstore.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-public class CreateBookFormController implements Controller {
+public class HomeCommand implements Command {
     @Override
     public String process(HttpServletRequest req) {
-        return "jsp/bookForm.jsp";
+        return "jsp/home.jsp";
     }
 }

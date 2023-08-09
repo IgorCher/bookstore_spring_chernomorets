@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class CreateUser implements Controller {
+public class CreateUser implements Command {
     public final UserService userService;
 
     @Override
@@ -25,7 +25,7 @@ public class CreateUser implements Controller {
         user.setPassword(password);
         user.setRoleDto(UserDto.RoleDto.valueOf(role));
         UserDto created = userService.create(user);
-        req.setAttribute("user",created);
+        req.setAttribute("user", created);
         return "jsp/user.jsp";
     }
 }

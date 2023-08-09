@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class CreateBook implements Controller {
+public class CreateBook implements Command {
     public final BookService bookService;
 
     @Override

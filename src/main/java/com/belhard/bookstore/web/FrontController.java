@@ -13,6 +13,20 @@ import java.io.IOException;
 @Log4j2
 public class FrontController extends HttpServlet {
 
+    private static void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String command = req.getParameter("command");
+        Command controller = ControllerFactory.INSTANCE.getController(command);
+        String page;
+        try {
+            page = controller.process(req);
+        } catch (Exception e) {
+            log.error(e);
+            Command error = ControllerFactory.INSTANCE.getController("error");
+            page = error.process(req);
+        }
+        req.getRequestDispatcher(page).forward(req, resp);
+    }
+
     @Override
     public void init() {
         log.warn("Servlet initialized");
@@ -28,20 +42,6 @@ public class FrontController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("DoPost called");
         process(req, resp);
-    }
-
-    private static void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String command = req.getParameter("command");
-        Controller controller = ControllerFactory.INSTANCE.getController(command);
-        String page;
-        try {
-            page = controller.process(req);
-        } catch (Exception e) {
-            log.error(e);
-            Controller error = ControllerFactory.INSTANCE.getController("error");
-            page = error.process(req);
-        }
-        req.getRequestDispatcher(page).forward(req, resp);
     }
 
     @Override

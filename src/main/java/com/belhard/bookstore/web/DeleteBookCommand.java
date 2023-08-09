@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class DeleteBookController implements Controller {
+public class DeleteBookCommand implements Command {
     public final BookService bookService;
 
     @Override

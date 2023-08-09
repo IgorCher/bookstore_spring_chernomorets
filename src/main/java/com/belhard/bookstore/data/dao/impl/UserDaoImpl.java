@@ -23,6 +23,19 @@ public class UserDaoImpl implements UserDao {
     private static final String DELETE = "DELETE FROM users WHERE id = ?";
     private final ConnectionManager connectionManager;
 
+    public static User mapRow(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getLong("id"));
+        user.setName(resultSet.getString("name"));
+        user.setLastName(resultSet.getString("last_name"));
+        user.setEmail(resultSet.getString("email"));
+        user.setLogin(resultSet.getString("login"));
+        user.setPassword(resultSet.getString("password"));
+        String roleRaw = resultSet.getString("role");
+        user.setRole(User.Role.valueOf(roleRaw));
+        return user;
+    }
+
     @Override
     public User find(long id) {
         try (Connection connection = connectionManager.getConnection()) {
@@ -179,18 +192,5 @@ public class UserDaoImpl implements UserDao {
             throw new RuntimeException(e);
         }
         return 0;
-    }
-
-    public static User mapRow(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getLong("id"));
-        user.setName(resultSet.getString("name"));
-        user.setLastName(resultSet.getString("last_name"));
-        user.setEmail(resultSet.getString("email"));
-        user.setLogin(resultSet.getString("login"));
-        user.setPassword(resultSet.getString("password"));
-        String roleRaw = resultSet.getString("role");
-        user.setRole(User.Role.valueOf(roleRaw));
-        return user;
     }
 }

@@ -5,15 +5,15 @@ import com.belhard.bookstore.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @RequiredArgsConstructor
-public class UsersController implements Controller{
-    private final UserService userService;
+public class EditUserFormCommand implements Command {
+    public final UserService userService;
+
     @Override
     public String process(HttpServletRequest req) {
-        List<UserDto> users = userService.getAll();
-        req.setAttribute("users", users);
-        return "jsp/users.jsp";
+        Long id = Long.parseLong(req.getParameter("id"));
+        UserDto userDto = userService.getById(id);
+        req.setAttribute("user", userDto);
+        return "jsp/editUserForm.jsp";
     }
 }

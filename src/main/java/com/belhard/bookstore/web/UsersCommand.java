@@ -8,13 +8,11 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class DeleteUserController implements Controller {
-    public final UserService userService;
+public class UsersCommand implements Command {
+    private final UserService userService;
 
     @Override
     public String process(HttpServletRequest req) {
-        Long id = Long.parseLong(req.getParameter("id"));
-        userService.delete(id);
         List<UserDto> users = userService.getAll();
         req.setAttribute("users", users);
         return "jsp/users.jsp";

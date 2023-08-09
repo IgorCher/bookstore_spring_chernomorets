@@ -1,8 +1,7 @@
 package com.belhard.bookstore.web;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
-public interface Controller {
+public interface Command {
     String process(HttpServletRequest req);
 }

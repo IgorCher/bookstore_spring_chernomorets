@@ -8,7 +8,7 @@ import lombok.extern.log4j.Log4j2;
 
 @RequiredArgsConstructor
 @Log4j2
-public class EditUser implements Controller {
+public class EditUser implements Command {
     public final UserService userService;
 
     @Override
@@ -31,7 +31,7 @@ public class EditUser implements Controller {
         log.debug("prepare to update user");
         UserDto updated = userService.update(user);
         log.debug("user updated");
-        req.setAttribute("user",updated);
+        req.setAttribute("user", updated);
         return "jsp/user.jsp";
     }
 }

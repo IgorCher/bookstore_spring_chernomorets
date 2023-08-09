@@ -24,8 +24,8 @@ import java.util.Map;
 @Log4j2
 public class ControllerFactory implements Closeable {
     public static final ControllerFactory INSTANCE = new ControllerFactory();
-    private Map<String, Controller> controllers;
     private final List<Closeable> resources;
+    private Map<String, Command> controllers;
 
     public ControllerFactory() {
         resources = new ArrayList<>();
@@ -44,27 +44,27 @@ public class ControllerFactory implements Closeable {
         BookDao bookDao = new BookDaoImpl(connectionManager);
         BookService bookService = new BookServiceImpl(bookDao);
 
-        controllers.put("home",new HomeController());
-        controllers.put("user", new UserController(userService));
-        controllers.put("users", new UsersController(userService));
-        controllers.put("book", new BookController(bookService));
-        controllers.put("books",new BooksController(bookService));
-        controllers.put("error", new ErrorController());
-        controllers.put("create_user_form", new CreateUserFormController());
+        controllers.put("home", new HomeCommand());
+        controllers.put("user", new UserCommand(userService));
+        controllers.put("users", new UsersCommand(userService));
+        controllers.put("book", new BookCommand(bookService));
+        controllers.put("books", new BooksCommand(bookService));
+        controllers.put("error", new ErrorCommand());
+        controllers.put("create_user_form", new CreateUserFormCommand());
         controllers.put("create_user", new CreateUser(userService));
-        controllers.put("create_book_form", new CreateBookFormController());
+        controllers.put("create_book_form", new CreateBookFormCommand());
         controllers.put("create_book", new CreateBook(bookService));
-        controllers.put("edit_user_form", new EditUserFormController(userService));
+        controllers.put("edit_user_form", new EditUserFormCommand(userService));
         controllers.put("edit_user", new EditUser(userService));
-        controllers.put("edit_book_form", new EditBookFormController(bookService));
+        controllers.put("edit_book_form", new EditBookFormCommand(bookService));
         controllers.put("edit_book", new EditBook(bookService));
-        controllers.put("delete_user",new DeleteUserController(userService));
-        controllers.put("delete_book",new DeleteBookController(bookService));
+        controllers.put("delete_user", new DeleteUserCommand(userService));
+        controllers.put("delete_book", new DeleteBookCommand(bookService));
     }
 
-    public Controller getController(String command) {
-        Controller controller = controllers.get(command);
-        if (controller == null){
+    public Command getController(String command) {
+        Command controller = controllers.get(command);
+        if (controller == null) {
             controller = controllers.get("error");
         }
         return controller;
@@ -73,9 +73,9 @@ public class ControllerFactory implements Closeable {
     @Override
     public void close() {
         for (Closeable resource : resources) {
-            try{
+            try {
                 resource.close();
-            }catch (IOException e){
+            } catch (IOException e) {
                 log.error(e);
             }
         }
