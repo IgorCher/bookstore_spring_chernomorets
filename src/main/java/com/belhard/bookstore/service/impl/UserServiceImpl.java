@@ -1,14 +1,16 @@
 package com.belhard.bookstore.service.impl;
 
 import com.belhard.bookstore.data.dao.UserDao;
-import com.belhard.bookstore.data.entity.User;
 import com.belhard.bookstore.data.dto.UserDto;
+import com.belhard.bookstore.data.entity.User;
 import com.belhard.bookstore.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 @Log4j2
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {

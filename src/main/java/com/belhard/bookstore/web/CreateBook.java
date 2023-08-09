@@ -4,9 +4,11 @@ import com.belhard.bookstore.data.dto.BookDto;
 import com.belhard.bookstore.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 
+@Controller("create_book")
 @RequiredArgsConstructor
-public class CreateBook implements Controller {
+public class CreateBook implements Command {
     public final BookService bookService;
 
     @Override

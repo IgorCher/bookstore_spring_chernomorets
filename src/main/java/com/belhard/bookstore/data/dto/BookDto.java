@@ -13,12 +13,6 @@ public class BookDto {
     private String isbn;
     private CoverDto coverDto;
 
-    public enum CoverDto {
-        HARD,
-        SOFT,
-        OTHER
-    }
-
     public double getPrice() {
         return price;
     }
@@ -108,5 +102,11 @@ public class BookDto {
                 ", isbn='" + isbn + '\'' +
                 ", coverDto=" + coverDto +
                 '}';
+    }
+
+    public enum CoverDto {
+        HARD,
+        SOFT,
+        OTHER
     }
 }

@@ -5,11 +5,13 @@ import com.belhard.bookstore.data.dao.UserDao;
 import com.belhard.bookstore.data.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 @Log4j2
 @RequiredArgsConstructor
 public class UserDaoImpl implements UserDao {
@@ -22,6 +24,19 @@ public class UserDaoImpl implements UserDao {
     private static final String COUNT = "SELECT COUNT(u.id) FROM users u";
     private static final String DELETE = "DELETE FROM users WHERE id = ?";
     private final ConnectionManager connectionManager;
+
+    public static User mapRow(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getLong("id"));
+        user.setName(resultSet.getString("name"));
+        user.setLastName(resultSet.getString("last_name"));
+        user.setEmail(resultSet.getString("email"));
+        user.setLogin(resultSet.getString("login"));
+        user.setPassword(resultSet.getString("password"));
+        String roleRaw = resultSet.getString("role");
+        user.setRole(User.Role.valueOf(roleRaw));
+        return user;
+    }
 
     @Override
     public User find(long id) {
@@ -179,18 +194,5 @@ public class UserDaoImpl implements UserDao {
             throw new RuntimeException(e);
         }
         return 0;
-    }
-
-    public static User mapRow(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getLong("id"));
-        user.setName(resultSet.getString("name"));
-        user.setLastName(resultSet.getString("last_name"));
-        user.setEmail(resultSet.getString("email"));
-        user.setLogin(resultSet.getString("login"));
-        user.setPassword(resultSet.getString("password"));
-        String roleRaw = resultSet.getString("role");
-        user.setRole(User.Role.valueOf(roleRaw));
-        return user;
     }
 }

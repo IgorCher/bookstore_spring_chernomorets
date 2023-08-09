@@ -10,11 +10,6 @@ public class UserDto {
     private String login;
     private String password;
     private RoleDto roleDto;
-    public enum RoleDto{
-        ADMIN,
-        MANAGER,
-        CUSTOMER
-    }
 
     public long getId() {
         return id;
@@ -96,5 +91,11 @@ public class UserDto {
                 ", password='" + password + '\'' +
                 ", role=" + roleDto +
                 '}';
+    }
+
+    public enum RoleDto {
+        ADMIN,
+        MANAGER,
+        CUSTOMER
     }
 }

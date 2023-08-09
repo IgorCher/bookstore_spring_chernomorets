@@ -5,11 +5,13 @@ import com.belhard.bookstore.data.dao.BookDao;
 import com.belhard.bookstore.data.entity.Book;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 @Log4j2
 @RequiredArgsConstructor
 public class BookDaoImpl implements BookDao {
@@ -23,10 +25,23 @@ public class BookDaoImpl implements BookDao {
     private static final String DELETE = "DELETE FROM books WHERE id = ?";
     private final ConnectionManager connectionManager;
 
+    public static Book mapRow(ResultSet resultSet) throws SQLException {
+        Book book = new Book();
+        book.setId(resultSet.getLong("id"));
+        book.setTitle(resultSet.getString("title"));
+        book.setAuthor(resultSet.getString("author"));
+        book.setYear(resultSet.getString("year"));
+        book.setPrice(resultSet.getDouble("price"));
+        book.setIsbn(resultSet.getString("isbn"));
+        book.setPages(resultSet.getInt("pages"));
+        String coverRaw = resultSet.getString("cover_type");
+        book.setCover(Book.Cover.valueOf(coverRaw));
+        return book;
+    }
 
     public List<Book> findAll() {
         List<Book> books = new ArrayList<>();
-        try (Connection connection = connectionManager.getConnection()){
+        try (Connection connection = connectionManager.getConnection()) {
             log.info("Connected to database");
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(FIND_ALL);
@@ -178,19 +193,5 @@ public class BookDaoImpl implements BookDao {
             throw new RuntimeException(e);
         }
         return 0;
-    }
-
-    public static Book mapRow(ResultSet resultSet) throws SQLException {
-        Book book = new Book();
-        book.setId(resultSet.getLong("id"));
-        book.setTitle(resultSet.getString("title"));
-        book.setAuthor(resultSet.getString("author"));
-        book.setYear(resultSet.getString("year"));
-        book.setPrice(resultSet.getDouble("price"));
-        book.setIsbn(resultSet.getString("isbn"));
-        book.setPages(resultSet.getInt("pages"));
-        String coverRaw = resultSet.getString("cover_type");
-        book.setCover(Book.Cover.valueOf(coverRaw));
-        return book;
     }
 }

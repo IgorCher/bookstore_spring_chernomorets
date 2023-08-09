@@ -4,12 +4,14 @@ import com.belhard.bookstore.data.dto.UserDto;
 import com.belhard.bookstore.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
-
+@Controller("users")
 @RequiredArgsConstructor
-public class UsersController implements Controller{
+public class UsersCommand implements Command {
     private final UserService userService;
+
     @Override
     public String process(HttpServletRequest req) {
         List<UserDto> users = userService.getAll();

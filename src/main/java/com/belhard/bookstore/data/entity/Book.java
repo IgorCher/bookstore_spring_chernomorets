@@ -15,7 +15,7 @@ public class Book {
 
     private Cover cover;
 
-    public enum Cover{
+    public enum Cover {
         HARD,
         SOFT,
         OTHER
