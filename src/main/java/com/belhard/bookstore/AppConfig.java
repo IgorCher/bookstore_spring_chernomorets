@@ -40,6 +40,7 @@ public class AppConfig {
         dataSource.setUsername(login);
         dataSource.setJdbcUrl(url);
         dataSource.setPassword(password);
+        dataSource.setDriverClassName(driver);
         return dataSource;
     }
 }
