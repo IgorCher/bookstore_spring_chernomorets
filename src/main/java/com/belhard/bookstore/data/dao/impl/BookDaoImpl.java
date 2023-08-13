@@ -5,7 +5,7 @@ import com.belhard.bookstore.data.entity.Book;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -14,7 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Log4j2
@@ -68,15 +70,17 @@ public class BookDaoImpl implements BookDao {
     @Override
     public Book create(Book book) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(book);
-        namedParameterJdbcTemplate.update(CREATE_N, namedParameters, keyHolder);
+        Map<String, Object> params = prepareForUpdate(book);
+        SqlParameterSource namedParams = new MapSqlParameterSource().addValues(params);
+        namedParameterJdbcTemplate.update(CREATE_N, namedParams, keyHolder, new String[]{"id"});
         long id = keyHolder.getKey().longValue();
         return find(id);
     }
 
     @Override
     public Book update(Book book) {
-        SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(book);
+        Map<String, Object> params = prepareForUpdate(book);
+        SqlParameterSource namedParameters = new MapSqlParameterSource().addValues(params);
         namedParameterJdbcTemplate.update(UPDATE_N, namedParameters);
         return book;
     }
@@ -89,5 +93,18 @@ public class BookDaoImpl implements BookDao {
     @Override
     public long countAll() {
         return jdbcTemplate.queryForObject(COUNT, Long.class);
+    }
+
+    private static Map<String, Object> prepareForUpdate(Book book) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", book.getId());
+        params.put("title", book.getTitle());
+        params.put("author", book.getAuthor());
+        params.put("year", book.getYear());
+        params.put("price", book.getPrice());
+        params.put("isbn", book.getIsbn());
+        params.put("pages", book.getPages());
+        params.put("cover", book.getCover().toString());
+        return params;
     }
 }
