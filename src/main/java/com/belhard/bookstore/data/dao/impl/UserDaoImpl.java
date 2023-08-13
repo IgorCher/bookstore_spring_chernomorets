@@ -65,7 +65,7 @@ public class UserDaoImpl implements UserDao {
     public User create(User user) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(conn -> {
-            PreparedStatement statement = conn.prepareStatement(CREATE);
+            PreparedStatement statement = conn.prepareStatement(CREATE, new String[]{"id"});
 
             statement.setString(1, user.getName());
             statement.setString(2, user.getLastName());
@@ -92,7 +92,7 @@ public class UserDaoImpl implements UserDao {
             statement.setLong(7, user.getId());
             return statement;
         });
-        return user;
+        return find(user.getId());
     }
 
     @Override
