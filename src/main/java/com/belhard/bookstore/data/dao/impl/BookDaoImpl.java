@@ -22,9 +22,9 @@ import java.util.Map;
 @Log4j2
 @RequiredArgsConstructor
 public class BookDaoImpl implements BookDao {
-    private static final String FIND_ALL = "SELECT b.id, b.author, b.title, b.year, b.price, b.pages, b.isbn, c.cover_type FROM books b JOIN cover_types c ON b.cover_type_id = c.id";
+    private static final String FIND_ALL = "SELECT b.id, b.author, b.title, b.year, b.price, b.pages, b.isbn, c.cover_type FROM books b JOIN cover_types c ON b.cover_type_id = c.id ORDER BY b.id";
     private static final String FIND_BY_ID = "SELECT b.id, b.author, b.title, b.year, b.price, b.pages, b.isbn, c.cover_type FROM books b JOIN cover_types c ON b.cover_type_id = c.id WHERE b.id = ?";
-    private static final String FIND_BY_AUTHOR = "SELECT b.id, b.author, b.title, b.year, b.price, b.pages, b.isbn, c.cover_type FROM books b JOIN cover_types c ON b.cover_type_id = c.id WHERE b.author = ?";
+    private static final String FIND_BY_AUTHOR = "SELECT b.id, b.author, b.title, b.year, b.price, b.pages, b.isbn, c.cover_type FROM books b JOIN cover_types c ON b.cover_type_id = c.id WHERE b.author = ? ORDER BY b.id";
     private static final String FIND_BY_ISBN = "SELECT b.id, b.author, b.title, b.year, b.price, b.pages, b.isbn, c.cover_type FROM books b JOIN cover_types c ON b.cover_type_id = c.id WHERE b.isbn = ?";
     private static final String CREATE_N = "INSERT INTO books (author, title, year, price, pages, isbn, cover_type_id) Values (:author, :title, :year, :price, :pages, :isbn, (SELECT id FROM cover_types WHERE cover_type = :cover))";
     private static final String UPDATE_N = "UPDATE books SET author = :author, title = :title, year = :year, price = :price, pages = :pages, isbn = :isbn, cover_type_id = (SELECT id FROM cover_types WHERE cover_type = :cover) WHERE id = :id";

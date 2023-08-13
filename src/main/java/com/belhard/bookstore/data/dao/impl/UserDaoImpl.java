@@ -24,8 +24,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserDaoImpl implements UserDao {
     private static final String FIND_BY_ID = "SELECT u.id, u.name, u.last_name, u.email, login, password, r.role FROM users u JOIN roles r ON u.role_id = r.id WHERE u.id = ?";
-    private static final String FIND_ALL = "SELECT u.id, u.name, u.last_name, u.email, login, password, r.role FROM users u JOIN roles r ON u.role_id = r.id";
-    private static final String FIND_BY_LAST_NAME = "SELECT u.id, u.name, u.last_name, u.email, login, password, r.role FROM users u JOIN roles r ON u.role_id = r.id WHERE u.last_name = ?";
+    private static final String FIND_ALL = "SELECT u.id, u.name, u.last_name, u.email, login, password, r.role FROM users u JOIN roles r ON u.role_id = r.id ORDER BY u.id";
+    private static final String FIND_BY_LAST_NAME = "SELECT u.id, u.name, u.last_name, u.email, login, password, r.role FROM users u JOIN roles r ON u.role_id = r.id WHERE u.last_name = ? ORDER BY u.id";
     private static final String FIND_BY_EMAIL = "SELECT u.id, u.name, u.last_name, u.email, login, password, r.role FROM users u JOIN roles r ON u.role_id = r.id WHERE u.email = ?";
     private static final String CREATE = "INSERT INTO users (name, last_name, email, login, password, role_id) Values (:name, :lastName, :email, :login, :password, (SELECT id FROM roles WHERE role = :role))";
     private static final String UPDATE = "UPDATE users SET name = :name, last_name = :lastName, email = :email, login = :login, password = :password, role_id = (SELECT id FROM roles WHERE role = :role) WHERE id = :id";
