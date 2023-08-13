@@ -5,6 +5,9 @@ import com.belhard.bookstore.data.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -12,7 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Log4j2
@@ -22,11 +27,12 @@ public class UserDaoImpl implements UserDao {
     private static final String FIND_ALL = "SELECT u.id, u.name, u.last_name, u.email, login, password, r.role FROM users u JOIN roles r ON u.role_id = r.id";
     private static final String FIND_BY_LAST_NAME = "SELECT u.id, u.name, u.last_name, u.email, login, password, r.role FROM users u JOIN roles r ON u.role_id = r.id WHERE u.last_name = ?";
     private static final String FIND_BY_EMAIL = "SELECT u.id, u.name, u.last_name, u.email, login, password, r.role FROM users u JOIN roles r ON u.role_id = r.id WHERE u.email = ?";
-    private static final String CREATE = "INSERT INTO users (name, last_name, email, login, password, role_id) Values (?, ?, ?, ?, ?, (SELECT id FROM roles WHERE role = ?))";
-    private static final String UPDATE = "UPDATE users SET name = ?, last_name = ?, email = ?, login = ?, password = ?, role_id = (SELECT id FROM roles WHERE role = ?) WHERE id = ?";
+    private static final String CREATE = "INSERT INTO users (name, last_name, email, login, password, role_id) Values (:name, :lastName, :email, :login, :password, (SELECT id FROM roles WHERE role = :role))";
+    private static final String UPDATE = "UPDATE users SET name = :name, last_name = :lastName, email = :email, login = :login, password = :password, role_id = (SELECT id FROM roles WHERE role = :role) WHERE id = :id";
     private static final String COUNT = "SELECT COUNT(u.id) FROM users u";
     private static final String DELETE = "DELETE FROM users WHERE id = ?";
     private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private User mapRow(ResultSet resultSet, int rows) throws SQLException {
         User user = new User();
@@ -64,34 +70,18 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User create(User user) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(conn -> {
-            PreparedStatement statement = conn.prepareStatement(CREATE, new String[]{"id"});
-
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getLastName());
-            statement.setString(3, user.getEmail());
-            statement.setString(4, user.getLogin());
-            statement.setString(5, user.getPassword());
-            statement.setString(6, user.getRole().toString());
-            return statement;
-        }, keyHolder);
+        Map<String, Object> params = prepareForUpdate(user);
+        SqlParameterSource namedParameters = new MapSqlParameterSource(params);
+        namedParameterJdbcTemplate.update(CREATE, namedParameters, keyHolder, new String[] {"id"});
         long id = keyHolder.getKey().longValue();
         return find(id);
     }
 
     @Override
     public User update(User user) {
-        jdbcTemplate.update(conn -> {
-            PreparedStatement statement = conn.prepareStatement(UPDATE);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getLastName());
-            statement.setString(3, user.getEmail());
-            statement.setString(4, user.getLogin());
-            statement.setString(5, user.getPassword());
-            statement.setString(6, user.getRole().toString());
-            statement.setLong(7, user.getId());
-            return statement;
-        });
+        Map<String, Object> params = prepareForUpdate(user);
+        SqlParameterSource namedParameters = new MapSqlParameterSource(params);
+        namedParameterJdbcTemplate.update(UPDATE,namedParameters);
         return find(user.getId());
     }
 
@@ -103,5 +93,17 @@ public class UserDaoImpl implements UserDao {
     @Override
     public long countAll() {
         return jdbcTemplate.queryForObject(COUNT, Long.class);
+    }
+
+    private static Map<String, Object> prepareForUpdate(User user) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", user.getId());
+        params.put("name", user.getName());
+        params.put("lastName", user.getLastName());
+        params.put("email", user.getEmail());
+        params.put("login", user.getLogin());
+        params.put("password", user.getPassword());
+        params.put("role", user.getRole().toString());
+        return params;
     }
 }
