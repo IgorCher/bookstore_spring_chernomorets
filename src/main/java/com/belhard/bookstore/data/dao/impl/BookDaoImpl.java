@@ -39,7 +39,7 @@ public class BookDaoImpl implements BookDao {
         book.setTitle(resultSet.getString("title"));
         book.setAuthor(resultSet.getString("author"));
         book.setYear(resultSet.getString("year"));
-        book.setPrice(resultSet.getDouble("price"));
+        book.setPrice(resultSet.getBigDecimal("price"));
         book.setIsbn(resultSet.getString("isbn"));
         book.setPages(resultSet.getInt("pages"));
         String coverRaw = resultSet.getString("cover_type");

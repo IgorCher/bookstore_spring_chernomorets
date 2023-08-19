@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 
+import java.math.BigDecimal;
+
 @Controller("edit_book")
 @RequiredArgsConstructor
 @Log4j2
@@ -28,7 +30,7 @@ public class EditBook implements Command {
         bookDto.setTitle(title);
         bookDto.setAuthor(author);
         bookDto.setYear(year);
-        bookDto.setPrice(Double.parseDouble(price));
+        bookDto.setPrice(new BigDecimal(price));
         bookDto.setPages(Integer.parseInt(pages));
         bookDto.setIsbn(isbn);
         bookDto.setCoverDto(BookDto.CoverDto.valueOf(cover));

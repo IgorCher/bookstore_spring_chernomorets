@@ -2,6 +2,8 @@ package com.belhard.bookstore.data.entity;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class Book {
 
@@ -9,7 +11,7 @@ public class Book {
     private String title;
     private String author;
     private String year;
-    private double price;
+    private BigDecimal price;
     private int pages;
     private String isbn;
 
