@@ -1,5 +1,6 @@
 package com.belhard.bookstore.data.dto;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class BookDto {
@@ -8,16 +9,16 @@ public class BookDto {
     private String title;
     private String author;
     private String year;
-    private double price;
+    private BigDecimal price;
     private int pages;
     private String isbn;
     private CoverDto coverDto;
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
+import java.math.BigDecimal;
+
 @Controller("create_book")
 @RequiredArgsConstructor
 public class CreateBook implements Command {
@@ -24,7 +26,7 @@ public class CreateBook implements Command {
         bookDto.setTitle(title);
         bookDto.setAuthor(author);
         bookDto.setYear(year);
-        bookDto.setPrice(Double.parseDouble(price));
+        bookDto.setPrice(new BigDecimal(price));
         bookDto.setPages(Integer.parseInt(pages));
         bookDto.setIsbn(isbn);
         bookDto.setCoverDto(BookDto.CoverDto.valueOf(cover));
