@@ -1,21 +1,21 @@
 package com.belhard.bookstore.data.dao;
 
-import com.belhard.bookstore.data.entity.Book;
+import com.belhard.bookstore.data.dto.BookDto;
 
 import java.util.List;
 
 public interface BookDao {
-    List<Book> findAll();
+    List<BookDto> findAll();
 
-    List<Book> findByAuthor(String author);
+    List<BookDto> findByAuthor(String author);
 
-    Book find(long id);
+    BookDto find(long id);
 
-    Book findByIsbn(String isbn);
+    BookDto findByIsbn(String isbn);
 
-    Book create(Book book);
+    BookDto create(BookDto bookDto);
 
-    Book update(Book book);
+    BookDto update(BookDto bookDto);
 
     boolean delete(long id);
 

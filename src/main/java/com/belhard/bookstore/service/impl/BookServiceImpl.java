@@ -1,8 +1,8 @@
 package com.belhard.bookstore.service.impl;
 
-import com.belhard.bookstore.data.dao.BookDao;
 import com.belhard.bookstore.data.dto.BookDto;
 import com.belhard.bookstore.data.entity.Book;
+import com.belhard.bookstore.data.repository.BookRepository;
 import com.belhard.bookstore.service.BookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,12 +14,12 @@ import java.util.List;
 @Log4j2
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
-    private final BookDao bookDao;
+    private final BookRepository bookRepository;
 
     @Override
     public List<BookDto> getAll() {
         log.debug("Service method running");
-        return bookDao.findAll()
+        return bookRepository.findAll()
                 .stream()
                 .map(this::toDto)
                 .toList();
@@ -28,7 +28,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto getById(long id) {
         log.debug("Service method running");
-        Book book = bookDao.find(id);
+        Book book = bookRepository.find(id);
         if (book == null) {
             throw new RuntimeException("Book with id:" + id + "not found");
         }
@@ -43,7 +43,7 @@ public class BookServiceImpl implements BookService {
             throw new RuntimeException();
         }
         Book entity = toEntity(bookDto);
-        Book created = bookDao.create(entity);
+        Book created = bookRepository.create(entity);
         return toDto(created);
     }
 
@@ -54,14 +54,14 @@ public class BookServiceImpl implements BookService {
             throw new RuntimeException();
         }
         Book entity = toEntity(bookDto);
-        Book updated = bookDao.update(entity);
+        Book updated = bookRepository.update(entity);
         return toDto(updated);
     }
 
     @Override
     public void delete(long id) {
         log.debug("Service method running");
-        if (!bookDao.delete(id)) {
+        if (!bookRepository.delete(id)) {
             throw new RuntimeException("Not found book with id: " + id);
         }
     }
