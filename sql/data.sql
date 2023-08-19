@@ -4,7 +4,7 @@ VALUES ('SOFT'),
         ('OTHER');
        
 INSERT INTO books (author, title, year, price, pages, isbn, cover_type_id)
-VALUES ('Shakespeare', 'Romeo and Juliet','1911', 10.20, 1510,'9781257800041', (SELECT id FROM cover_types WHERE cover_type = 'SOFT')),
+VALUES ('Shakespeare', 'Romeo and Juliet','1911', 100.00, 1510,'9781257800041', (SELECT id FROM cover_types WHERE cover_type = 'SOFT')),
 		('Melville', 'Moby Dick','1912',20.10, 801,'9781257777441', (SELECT id FROM cover_types WHERE cover_type = 'HARD')),
 		('Forster', 'A Room with a View','1912', 23.30, 780,'9781257822241', (SELECT id FROM cover_types WHERE cover_type = 'OTHER')),
 		('Eliot', 'Middlemarch','1941', 16.50, 605,'9781257891111', (SELECT id FROM cover_types WHERE cover_type = 'HARD')),
@@ -56,3 +56,27 @@ VALUES ('Shakespeare', 'Romeo and Juliet','1911', 10.20, 1510,'9781257800041', (
 		('Bred', 'Pitt', 'pitt@gmail.com', 'bpitt', 'qwerty123',(SELECT id FROM roles WHERE role = 'CUSTOMER')),
 		('Richard', 'Hammond', 'hammond@gmail.com', 'rhammond', 'qwe654rty',(SELECT id FROM roles WHERE role = 'ADMIN')),
 		('James', 'Bond', 'bond@gmail.com', 'jbond', 'qwertymnbvc',(SELECT id FROM roles WHERE role = 'ADMIN'));
+	
+		INSERT INTO orders (user_id, "cost")
+		VALUES (1, 100.00),
+		(2, 100.00),
+		(3, 100.00),
+		(4, 100.00),
+		(5, 100.00),
+		(6, 100.00),
+		(7, 100.00),
+		(8, 20.10),
+		(9, 20.10),
+		(10, 20.10);
+		
+		INSERT INTO order_items (order_id, book_id, quantity, price)
+		VALUES (1, 1, 1, (SELECT price FROM books WHERE id = 1)),
+		(2, 1, 1, (SELECT price FROM books WHERE id = 1)),
+		(3, 1, 1, (SELECT price FROM books WHERE id = 1)),
+		(4, 1, 1, (SELECT price FROM books WHERE id = 1)),
+		(5, 1, 1, (SELECT price FROM books WHERE id = 1)),
+		(6, 1, 1, (SELECT price FROM books WHERE id = 1)),
+		(7, 1, 1, (SELECT price FROM books WHERE id = 1)),
+		(8, 2, 1, (SELECT price FROM books WHERE id = 2)),
+		(9, 2, 1, (SELECT price FROM books WHERE id = 2)),
+		(10, 2, 1, (SELECT price FROM books WHERE id = 2));
