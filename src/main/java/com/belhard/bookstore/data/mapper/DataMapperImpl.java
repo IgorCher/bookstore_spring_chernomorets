@@ -8,7 +8,9 @@ import com.belhard.bookstore.data.entity.Book;
 import com.belhard.bookstore.data.entity.Order;
 import com.belhard.bookstore.data.entity.OrderItem;
 import com.belhard.bookstore.data.entity.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DataMapperImpl implements DataMapper {
     @Override
     public BookDto toDto(Book entity) {
