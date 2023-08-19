@@ -7,6 +7,6 @@ import java.math.BigDecimal;
 @Data
 public class OrderDto {
     private Long id;
-    private Long userID;
+    private Long userId;
     private BigDecimal totalCost;
 }
