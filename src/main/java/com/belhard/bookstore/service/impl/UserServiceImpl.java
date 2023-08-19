@@ -1,8 +1,8 @@
 package com.belhard.bookstore.service.impl;
 
-import com.belhard.bookstore.data.dao.UserDao;
 import com.belhard.bookstore.data.dto.UserDto;
 import com.belhard.bookstore.data.entity.User;
+import com.belhard.bookstore.data.repository.UserRepository;
 import com.belhard.bookstore.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,12 +14,12 @@ import java.util.List;
 @Log4j2
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     @Override
     public UserDto getById(long id) {
         log.debug("Service method running");
-        User user = userDao.find(id);
+        User user = userRepository.find(id);
         if (user == null) {
             throw new RuntimeException("User with id: " + id + "not found");
         }
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAll() {
         log.debug("Service method running");
-        return userDao.findAll()
+        return userRepository.findAll()
                 .stream()
                 .map(this::toDto)
                 .toList();
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Invalid information");
         }
         User entity = toEntity(userDto);
-        User created = userDao.create(entity);
+        User created = userRepository.create(entity);
         return toDto(created);
     }
 
@@ -53,14 +53,14 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Invalid information");
         }
         User entity = toEntity(userDto);
-        User updated = userDao.update(entity);
+        User updated = userRepository.update(entity);
         return toDto(updated);
     }
 
     @Override
     public void delete(long id) {
         log.debug("Service method running");
-        if (!userDao.delete(id)) {
+        if (!userRepository.delete(id)) {
             throw new RuntimeException("User with id: " + id + "not found");
         }
     }
