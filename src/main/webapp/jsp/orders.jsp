@@ -22,7 +22,7 @@
             <td>
               <a href="controller?command=order&id=${order.id}">${order.id}</a>
             </td>
-            <td>${order.userId}</td>
+            <td>${order.userDto.id}</td>
             <td>${order.totalCost}</td>
           </tr>
         </c:forEach>
