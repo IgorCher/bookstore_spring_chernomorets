@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserRepository {
 
-    User find(long id);
+    User find(Long id);
 
     List<User> findAll();
 
@@ -18,7 +18,7 @@ public interface UserRepository {
 
     User update(User user);
 
-    boolean delete(long id);
+    boolean delete(Long id);
 
     long countAll();
 }

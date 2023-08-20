@@ -16,7 +16,7 @@ public class UserRepositoryImpl implements UserRepository {
     private final DataMapper dataMapper;
 
     @Override
-    public User find(long id) {
+    public User find(Long id) {
         return dataMapper.toEntity(userDao.find(id));
     }
 
@@ -52,7 +52,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(Long id) {
         return userDao.delete(id);
     }
 
