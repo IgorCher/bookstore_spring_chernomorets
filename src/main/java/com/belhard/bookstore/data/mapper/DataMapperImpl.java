@@ -55,7 +55,7 @@ public class DataMapperImpl implements DataMapper {
         orderItemDto.setBookId(entity.getId());
         orderItemDto.setBookQuantity(entity.getBookQuantity());
         orderItemDto.setBookPrice(entity.getBookPrice());
-        return null;
+        return orderItemDto;
     }
 
     @Override
@@ -99,6 +99,6 @@ public class DataMapperImpl implements DataMapper {
         orderItem.setId(dto.getId());
         orderItem.setBookQuantity(dto.getBookQuantity());
         orderItem.setBookPrice(dto.getBookPrice());
-        return null;
+        return orderItem;
     }
 }
