@@ -52,7 +52,8 @@ public class DataMapperImpl implements DataMapper {
     public OrderItemDto toDto(OrderItem entity) {
         OrderItemDto orderItemDto = new OrderItemDto();
         orderItemDto.setId(entity.getId());
-        orderItemDto.setBookId(entity.getId());
+        orderItemDto.setOrderId(entity.getOrderId());
+        orderItemDto.setBookId(entity.getBook().getId());
         orderItemDto.setBookQuantity(entity.getBookQuantity());
         orderItemDto.setBookPrice(entity.getBookPrice());
         return orderItemDto;
@@ -97,6 +98,7 @@ public class DataMapperImpl implements DataMapper {
     public OrderItem toEntity(OrderItemDto dto) {
         OrderItem orderItem = new OrderItem();
         orderItem.setId(dto.getId());
+        orderItem.setOrderId(dto.getOrderId());
         orderItem.setBookQuantity(dto.getBookQuantity());
         orderItem.setBookPrice(dto.getBookPrice());
         return orderItem;
