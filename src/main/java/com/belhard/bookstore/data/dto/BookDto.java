@@ -1,8 +1,10 @@
 package com.belhard.bookstore.data.dto;
 
-import java.math.BigDecimal;
-import java.util.Objects;
+import lombok.Data;
 
+import java.math.BigDecimal;
+
+@Data
 public class BookDto {
 
     private long id;
@@ -13,97 +15,6 @@ public class BookDto {
     private int pages;
     private String isbn;
     private CoverDto coverDto;
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public CoverDto getCoverDto() {
-        return coverDto;
-    }
-
-    public void setCoverDto(CoverDto coverDto) {
-        this.coverDto = coverDto;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public int getPages() {
-        return pages;
-    }
-
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BookDto book = (BookDto) o;
-        return pages == book.pages && Objects.equals(author, book.author) && Objects.equals(isbn, book.isbn) && Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(year, book.year);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(author, isbn, id, title, year, pages);
-    }
-
-    @Override
-    public String toString() {
-        return "BookDto{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", year='" + year + '\'' +
-                ", price=" + price +
-                ", pages=" + pages +
-                ", isbn='" + isbn + '\'' +
-                ", coverDto=" + coverDto +
-                '}';
-    }
 
     public enum CoverDto {
         HARD,
