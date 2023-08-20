@@ -1,7 +1,7 @@
 package com.belhard.bookstore.data.dao.impl;
 
 import com.belhard.bookstore.data.dao.BookDao;
-import com.belhard.bookstore.data.entity.Book;
+import com.belhard.bookstore.data.dto.BookDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,44 +33,44 @@ public class BookDaoImpl implements BookDao {
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private Book mapRow(ResultSet resultSet, int num) throws SQLException {
-        Book book = new Book();
-        book.setId(resultSet.getLong("id"));
-        book.setTitle(resultSet.getString("title"));
-        book.setAuthor(resultSet.getString("author"));
-        book.setYear(resultSet.getString("year"));
-        book.setPrice(resultSet.getBigDecimal("price"));
-        book.setIsbn(resultSet.getString("isbn"));
-        book.setPages(resultSet.getInt("pages"));
+    private BookDto mapRow(ResultSet resultSet, int num) throws SQLException {
+        BookDto bookDto = new BookDto();
+        bookDto.setId(resultSet.getLong("id"));
+        bookDto.setTitle(resultSet.getString("title"));
+        bookDto.setAuthor(resultSet.getString("author"));
+        bookDto.setYear(resultSet.getString("year"));
+        bookDto.setPrice(resultSet.getBigDecimal("price"));
+        bookDto.setIsbn(resultSet.getString("isbn"));
+        bookDto.setPages(resultSet.getInt("pages"));
         String coverRaw = resultSet.getString("cover_type");
-        book.setCover(Book.Cover.valueOf(coverRaw));
-        return book;
+        bookDto.setCoverDto(BookDto.CoverDto.valueOf(coverRaw));
+        return bookDto;
     }
 
     @Override
-    public List<Book> findAll() {
+    public List<BookDto> findAll() {
         return jdbcTemplate.query(FIND_ALL, this::mapRow);
     }
 
     @Override
-    public List<Book> findByAuthor(String author) {
+    public List<BookDto> findByAuthor(String author) {
         return jdbcTemplate.query(FIND_BY_AUTHOR, this::mapRow, author);
     }
 
     @Override
-    public Book find(long id) {
+    public BookDto find(long id) {
         return jdbcTemplate.queryForObject(FIND_BY_ID, this::mapRow, id);
     }
 
     @Override
-    public Book findByIsbn(String isbn) {
+    public BookDto findByIsbn(String isbn) {
         return jdbcTemplate.queryForObject(FIND_BY_ISBN, this::mapRow, isbn);
     }
 
     @Override
-    public Book create(Book book) {
+    public BookDto create(BookDto bookDto) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        Map<String, Object> params = prepareForUpdate(book);
+        Map<String, Object> params = prepareForUpdate(bookDto);
         SqlParameterSource namedParams = new MapSqlParameterSource().addValues(params);
         namedParameterJdbcTemplate.update(CREATE_N, namedParams, keyHolder, new String[]{"id"});
         long id = keyHolder.getKey().longValue();
@@ -78,11 +78,11 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Book update(Book book) {
-        Map<String, Object> params = prepareForUpdate(book);
+    public BookDto update(BookDto bookDto) {
+        Map<String, Object> params = prepareForUpdate(bookDto);
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValues(params);
         namedParameterJdbcTemplate.update(UPDATE_N, namedParameters);
-        return book;
+        return bookDto;
     }
 
     @Override
@@ -95,16 +95,16 @@ public class BookDaoImpl implements BookDao {
         return jdbcTemplate.queryForObject(COUNT, Long.class);
     }
 
-    private static Map<String, Object> prepareForUpdate(Book book) {
+    private static Map<String, Object> prepareForUpdate(BookDto bookDto) {
         Map<String, Object> params = new HashMap<>();
-        params.put("id", book.getId());
-        params.put("title", book.getTitle());
-        params.put("author", book.getAuthor());
-        params.put("year", book.getYear());
-        params.put("price", book.getPrice());
-        params.put("isbn", book.getIsbn());
-        params.put("pages", book.getPages());
-        params.put("cover", book.getCover().toString());
+        params.put("id", bookDto.getId());
+        params.put("title", bookDto.getTitle());
+        params.put("author", bookDto.getAuthor());
+        params.put("year", bookDto.getYear());
+        params.put("price", bookDto.getPrice());
+        params.put("isbn", bookDto.getIsbn());
+        params.put("pages", bookDto.getPages());
+        params.put("cover", bookDto.getCoverDto().toString());
         return params;
     }
 }

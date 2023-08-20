@@ -19,6 +19,9 @@
       <a href="controller?command=create_user_form">
         <button>Add user</button>
       </a>
+      <a href="controller?command=orders">
+         <button>Orders</button>
+      </a>
       <a href="controller?command=home">
         <button>Home</button>
       </a>

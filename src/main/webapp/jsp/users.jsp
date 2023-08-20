@@ -29,6 +29,11 @@
             <td>${user.lastName}</td>
             <td>${user.roleDto}</td>
             <td>
+              <a href="controller?command=user_orders&id=${user.id}">
+                <button>Orders</button>
+              </a>
+            </td>
+            <td>
               <a href="controller?command=edit_user_form&id=${user.id}">
                 <button>Edit</button>
               </a>

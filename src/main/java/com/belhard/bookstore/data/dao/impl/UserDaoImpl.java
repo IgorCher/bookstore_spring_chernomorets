@@ -1,7 +1,7 @@
 package com.belhard.bookstore.data.dao.impl;
 
 import com.belhard.bookstore.data.dao.UserDao;
-import com.belhard.bookstore.data.entity.User;
+import com.belhard.bookstore.data.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,7 +12,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -34,55 +33,55 @@ public class UserDaoImpl implements UserDao {
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private User mapRow(ResultSet resultSet, int rows) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getLong("id"));
-        user.setName(resultSet.getString("name"));
-        user.setLastName(resultSet.getString("last_name"));
-        user.setEmail(resultSet.getString("email"));
-        user.setLogin(resultSet.getString("login"));
-        user.setPassword(resultSet.getString("password"));
+    private UserDto mapRow(ResultSet resultSet, int rows) throws SQLException {
+        UserDto userDto = new UserDto();
+        userDto.setId(resultSet.getLong("id"));
+        userDto.setName(resultSet.getString("name"));
+        userDto.setLastName(resultSet.getString("last_name"));
+        userDto.setEmail(resultSet.getString("email"));
+        userDto.setLogin(resultSet.getString("login"));
+        userDto.setPassword(resultSet.getString("password"));
         String roleRaw = resultSet.getString("role");
-        user.setRole(User.Role.valueOf(roleRaw));
-        return user;
+        userDto.setRoleDto(UserDto.RoleDto.valueOf(roleRaw));
+        return userDto;
     }
 
     @Override
-    public User find(long id) {
+    public UserDto find(long id) {
         return jdbcTemplate.queryForObject(FIND_BY_ID, this::mapRow, id);
     }
 
     @Override
-    public List<User> findAll() {
+    public List<UserDto> findAll() {
         return jdbcTemplate.query(FIND_ALL, this::mapRow);
     }
 
     @Override
-    public List<User> findByLastName(String lastName) {
+    public List<UserDto> findByLastName(String lastName) {
         return jdbcTemplate.query(FIND_BY_LAST_NAME, this::mapRow, lastName);
     }
 
     @Override
-    public User findByEmail(String email) {
+    public UserDto findByEmail(String email) {
         return jdbcTemplate.queryForObject(FIND_BY_EMAIL, this::mapRow, email);
     }
 
     @Override
-    public User create(User user) {
+    public UserDto create(UserDto userDto) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        Map<String, Object> params = prepareForUpdate(user);
+        Map<String, Object> params = prepareForUpdate(userDto);
         SqlParameterSource namedParameters = new MapSqlParameterSource(params);
-        namedParameterJdbcTemplate.update(CREATE, namedParameters, keyHolder, new String[] {"id"});
+        namedParameterJdbcTemplate.update(CREATE, namedParameters, keyHolder, new String[]{"id"});
         long id = keyHolder.getKey().longValue();
         return find(id);
     }
 
     @Override
-    public User update(User user) {
-        Map<String, Object> params = prepareForUpdate(user);
+    public UserDto update(UserDto userDto) {
+        Map<String, Object> params = prepareForUpdate(userDto);
         SqlParameterSource namedParameters = new MapSqlParameterSource(params);
-        namedParameterJdbcTemplate.update(UPDATE,namedParameters);
-        return find(user.getId());
+        namedParameterJdbcTemplate.update(UPDATE, namedParameters);
+        return find(userDto.getId());
     }
 
     @Override
@@ -95,15 +94,15 @@ public class UserDaoImpl implements UserDao {
         return jdbcTemplate.queryForObject(COUNT, Long.class);
     }
 
-    private static Map<String, Object> prepareForUpdate(User user) {
+    private static Map<String, Object> prepareForUpdate(UserDto userDto) {
         Map<String, Object> params = new HashMap<>();
-        params.put("id", user.getId());
-        params.put("name", user.getName());
-        params.put("lastName", user.getLastName());
-        params.put("email", user.getEmail());
-        params.put("login", user.getLogin());
-        params.put("password", user.getPassword());
-        params.put("role", user.getRole().toString());
+        params.put("id", userDto.getId());
+        params.put("name", userDto.getName());
+        params.put("lastName", userDto.getLastName());
+        params.put("email", userDto.getEmail());
+        params.put("login", userDto.getLogin());
+        params.put("password", userDto.getPassword());
+        params.put("role", userDto.getRoleDto().toString());
         return params;
     }
 }
