@@ -92,6 +92,7 @@ public class OrderRepositoryImpl implements OrderRepository {
             OrderItem entity = dataMapper.toEntity(dto);
             Book book = dataMapper.toEntity(bookDao.find(dto.getBookId()));
             entity.setBook(book);
+            items.add(entity);
         });
         order.setOrderItems(items);
         return order;

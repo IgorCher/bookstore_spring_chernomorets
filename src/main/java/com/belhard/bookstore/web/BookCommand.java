@@ -1,6 +1,6 @@
 package com.belhard.bookstore.web;
 
-import com.belhard.bookstore.data.dto.BookDto;
+import com.belhard.bookstore.service.dto.BookDto;
 import com.belhard.bookstore.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
