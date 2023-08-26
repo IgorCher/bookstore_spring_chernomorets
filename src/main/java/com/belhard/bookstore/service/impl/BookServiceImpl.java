@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
             throw new RuntimeException();
         }
         Book entity = dataMapperService.toEntity(bookDto);
-        Book created = bookRepository.create(entity);
+        Book created = bookRepository.save(entity);
         return dataMapperService.toDto(created);
     }
 
@@ -56,7 +56,7 @@ public class BookServiceImpl implements BookService {
             throw new RuntimeException();
         }
         Book entity = dataMapperService.toEntity(bookDto);
-        Book updated = bookRepository.update(entity);
+        Book updated = bookRepository.save(entity);
         return dataMapperService.toDto(updated);
     }
 
