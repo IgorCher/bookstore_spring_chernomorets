@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Invalid information");
         }
         User entity = dataMapperService.toEntity(userDto);
-        User created = userRepository.create(entity);
+        User created = userRepository.save(entity);
         return dataMapperService.toDto(created);
     }
 
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Invalid information");
         }
         User entity = dataMapperService.toEntity(userDto);
-        User updated = userRepository.update(entity);
+        User updated = userRepository.save(entity);
         return dataMapperService.toDto(updated);
     }
 

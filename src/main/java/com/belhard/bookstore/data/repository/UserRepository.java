@@ -14,9 +14,7 @@ public interface UserRepository {
 
     User findByEmail(String email);
 
-    User create(User user);
-
-    User update(User user);
+    User save(User user);
 
     boolean delete(Long id);
 
