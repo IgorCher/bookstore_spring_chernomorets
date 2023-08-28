@@ -12,9 +12,7 @@ public interface OrderRepository {
 
     List<Order> findByUserId(Long userId);
 
-    Order create(Order entity);
-
-    Order update(Order entity);
+    Order save(Order entity);
 
     boolean delete(Long id);
 }
