@@ -9,7 +9,7 @@ import com.belhard.bookstore.service.dto.OrderItemDto;
 import com.belhard.bookstore.service.dto.OrderDto;
 import com.belhard.bookstore.service.dto.UserDto;
 
-public interface DataMapperService {
+public interface DataMapper {
     BookDto toDto(Book entity);
 
     UserDto toDto(User entity);

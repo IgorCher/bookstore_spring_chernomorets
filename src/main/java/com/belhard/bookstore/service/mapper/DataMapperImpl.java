@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class DataMapperServiceImpl implements DataMapperService {
+public class DataMapperImpl implements DataMapper {
     @Override
     public BookDto toDto(Book entity) {
         BookDto bookDto = new BookDto();
@@ -61,7 +61,6 @@ public class DataMapperServiceImpl implements DataMapperService {
     public OrderItemDto toDto(OrderItem entity) {
         OrderItemDto orderItemDto = new OrderItemDto();
         orderItemDto.setId(entity.getId());
-        orderItemDto.setOrderId(entity.getOrderId());
         orderItemDto.setBookDto(this.toDto(entity.getBook()));
         orderItemDto.setBookQuantity(entity.getBookQuantity());
         orderItemDto.setBookPrice(entity.getBookPrice());
@@ -114,7 +113,6 @@ public class DataMapperServiceImpl implements DataMapperService {
     public OrderItem toEntity(OrderItemDto dto) {
         OrderItem orderItem = new OrderItem();
         orderItem.setId(dto.getId());
-        orderItem.setOrderId(dto.getOrderId());
         orderItem.setBook(this.toEntity(dto.getBookDto()));
         orderItem.setBookQuantity(dto.getBookQuantity());
         orderItem.setBookPrice(dto.getBookPrice());

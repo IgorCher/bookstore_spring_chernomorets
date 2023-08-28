@@ -4,7 +4,7 @@ import com.belhard.bookstore.data.entity.User;
 import com.belhard.bookstore.data.repository.UserRepository;
 import com.belhard.bookstore.service.UserService;
 import com.belhard.bookstore.service.dto.UserDto;
-import com.belhard.bookstore.service.mapper.DataMapperService;
+import com.belhard.bookstore.service.mapper.DataMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final DataMapperService dataMapperService;
+    private final DataMapper dataMapper;
 
     @Override
     public UserDto getById(long id) {
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new RuntimeException("User with id: " + id + "not found");
         }
-        return dataMapperService.toDto(user);
+        return dataMapper.toDto(user);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         log.debug("Service method running");
         return userRepository.findAll()
                 .stream()
-                .map(dataMapperService::toDto)
+                .map(dataMapper::toDto)
                 .toList();
     }
 
@@ -43,9 +43,9 @@ public class UserServiceImpl implements UserService {
         if (userDto.getEmail() == null && userDto.getLogin() == null && userDto.getPassword() == null) {
             throw new RuntimeException("Invalid information");
         }
-        User entity = dataMapperService.toEntity(userDto);
+        User entity = dataMapper.toEntity(userDto);
         User created = userRepository.save(entity);
-        return dataMapperService.toDto(created);
+        return dataMapper.toDto(created);
     }
 
     @Override
@@ -54,9 +54,9 @@ public class UserServiceImpl implements UserService {
         if (userDto.getEmail() == null && userDto.getLogin() == null && userDto.getPassword() == null) {
             throw new RuntimeException("Invalid information");
         }
-        User entity = dataMapperService.toEntity(userDto);
+        User entity = dataMapper.toEntity(userDto);
         User updated = userRepository.save(entity);
-        return dataMapperService.toDto(updated);
+        return dataMapper.toDto(updated);
     }
 
     @Override
