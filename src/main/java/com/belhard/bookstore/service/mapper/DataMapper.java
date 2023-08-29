@@ -1,13 +1,13 @@
-package com.belhard.bookstore.data.mapper;
+package com.belhard.bookstore.service.mapper;
 
-import com.belhard.bookstore.data.dto.BookDto;
-import com.belhard.bookstore.data.dto.OrderDto;
-import com.belhard.bookstore.data.dto.OrderItemDto;
-import com.belhard.bookstore.data.dto.UserDto;
 import com.belhard.bookstore.data.entity.Book;
 import com.belhard.bookstore.data.entity.Order;
 import com.belhard.bookstore.data.entity.OrderItem;
 import com.belhard.bookstore.data.entity.User;
+import com.belhard.bookstore.service.dto.BookDto;
+import com.belhard.bookstore.service.dto.OrderItemDto;
+import com.belhard.bookstore.service.dto.OrderDto;
+import com.belhard.bookstore.service.dto.UserDto;
 
 public interface DataMapper {
     BookDto toDto(Book entity);

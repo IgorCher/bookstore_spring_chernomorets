@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,7 +9,6 @@
     <h1>Order: ${order.id}</h1>
     <p>User: ${order.userDto.id}</p>
     <p>Total cost: ${order.totalCost}</p>
-    <p>Order items: ${orderItems}</p>
 
     <table>
       <tr>
@@ -19,7 +19,11 @@
       </tr>
 
       <tr>
-        <c:forEach items="${orderItems}" var="orderItem" varStatus="counter">
+        <c:forEach
+          items="${order.orderItemsDto}"
+          var="orderItem"
+          varStatus="counter"
+        >
           <tr>
             <td>${counter.count}</td>
             <td>${orderItem.bookDto.title}</td>

@@ -4,7 +4,7 @@ import com.belhard.bookstore.data.entity.Book;
 import com.belhard.bookstore.data.repository.BookRepository;
 import com.belhard.bookstore.service.BookService;
 import com.belhard.bookstore.service.dto.BookDto;
-import com.belhard.bookstore.service.mapper.DataMapperService;
+import com.belhard.bookstore.service.mapper.DataMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -16,14 +16,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
-    private final DataMapperService dataMapperService;
+    private final DataMapper dataMapper;
 
     @Override
     public List<BookDto> getAll() {
         log.debug("Service method running");
         return bookRepository.findAll()
                 .stream()
-                .map(dataMapperService::toDto)
+                .map(dataMapper::toDto)
                 .toList();
     }
 
@@ -34,7 +34,7 @@ public class BookServiceImpl implements BookService {
         if (book == null) {
             throw new RuntimeException("Book with id:" + id + "not found");
         }
-        return dataMapperService.toDto(book);
+        return dataMapper.toDto(book);
     }
 
 
@@ -44,9 +44,9 @@ public class BookServiceImpl implements BookService {
         if (bookDto.getIsbn() == null) {
             throw new RuntimeException();
         }
-        Book entity = dataMapperService.toEntity(bookDto);
-        Book created = bookRepository.create(entity);
-        return dataMapperService.toDto(created);
+        Book entity = dataMapper.toEntity(bookDto);
+        Book created = bookRepository.save(entity);
+        return dataMapper.toDto(created);
     }
 
     @Override
@@ -55,9 +55,9 @@ public class BookServiceImpl implements BookService {
         if (bookDto.getIsbn() == null) {
             throw new RuntimeException();
         }
-        Book entity = dataMapperService.toEntity(bookDto);
-        Book updated = bookRepository.update(entity);
-        return dataMapperService.toDto(updated);
+        Book entity = dataMapper.toEntity(bookDto);
+        Book updated = bookRepository.save(entity);
+        return dataMapper.toDto(updated);
     }
 
     @Override

@@ -1,100 +1,62 @@
 package com.belhard.bookstore.data.repository.impl;
 
-import com.belhard.bookstore.data.dao.BookDao;
-import com.belhard.bookstore.data.dao.OrderDao;
-import com.belhard.bookstore.data.dao.OrderItemDao;
-import com.belhard.bookstore.data.dao.UserDao;
-import com.belhard.bookstore.data.dto.OrderDto;
-import com.belhard.bookstore.data.dto.OrderItemDto;
-import com.belhard.bookstore.data.entity.Book;
 import com.belhard.bookstore.data.entity.Order;
-import com.belhard.bookstore.data.entity.OrderItem;
-import com.belhard.bookstore.data.entity.User;
-import com.belhard.bookstore.data.mapper.DataMapper;
 import com.belhard.bookstore.data.repository.OrderRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class OrderRepositoryImpl implements OrderRepository {
-    private final OrderDao orderDao;
-    private final OrderItemDao orderItemDao;
-    private final UserDao userDao;
-    private final BookDao bookDao;
-    private final DataMapper dataMapper;
+
+    private static final String GET_ALL = "from Order";
+    private static final String GET_BY_USER_ID = "from Order o where o.user.id = :user_id";
+    @PersistenceContext
+    private EntityManager manager;
 
     @Override
     public Order find(Long id) {
-        OrderDto orderDto = orderDao.findById(id);
-        return combineOrder(orderDto);
+        return manager.find(Order.class, id);
     }
 
     @Override
+    @Transactional
     public List<Order> findAll() {
-        return orderDao.findAll()
-                .stream()
-                .map(this::combineOrder)
-                .toList();
+        return manager.createQuery(GET_ALL, Order.class).getResultList();
     }
 
     @Override
+    @Transactional
     public List<Order> findByUserId(Long userId) {
-        return orderDao.findByUserId(userId)
-                .stream()
-                .map(this::combineOrder)
-                .toList();
+        TypedQuery<Order> q = manager.createQuery(GET_BY_USER_ID, Order.class);
+        q.setParameter("user_id", userId);
+        return q.getResultList();
     }
 
     @Override
-    public Order create(Order entity) {
-        OrderDto orderDto = dataMapper.toDto(entity);
-        OrderDto createdDto = orderDao.create(orderDto);
-        entity.getOrderItems().forEach(orderItem -> {
-            OrderItemDto orderItemDto = dataMapper.toDto(orderItem);
-            orderItemDao.create(orderItemDto);
-        });
-        return combineOrder(createdDto);
-    }
-
-    @Override
-    public Order update(Order entity) {
-        OrderDto orderDto = dataMapper.toDto(entity);
-        OrderDto updatedDto = orderDao.update(orderDto);
-        orderItemDao.findByOrderId(entity.getId())
-                .forEach(orderItemDto -> orderItemDao.delete(orderItemDto.getId()));
-        entity.getOrderItems().forEach(orderItem -> {
-            OrderItemDto orderItemDto = dataMapper.toDto(orderItem);
-            orderItemDao.create(orderItemDto);
-        });
-        return combineOrder(updatedDto);
+    public Order save(Order entity) {
+        if (entity.getId() != null) {
+            manager.merge(entity);
+        } else {
+            manager.persist(entity);
+        }
+        return entity;
     }
 
     @Override
     public boolean delete(Long id) {
-        orderItemDao.findByOrderId(id).forEach(orderItemDto -> orderItemDao.delete(orderItemDto.getId()));
-        if (!orderDao.delete(id)) {
-            return false;
+        Order order = manager.find(Order.class, id);
+        if (order != null) {
+            manager.remove(order);
+            return true;
         }
-        return true;
-    }
-
-    private Order combineOrder(OrderDto orderDto) {
-        Order order = dataMapper.toEntity(orderDto);
-        User user = dataMapper.toEntity(userDao.find(orderDto.getUserId()));
-        order.setUser(user);
-        List<OrderItemDto> itemsDto = orderItemDao.findByOrderId(orderDto.getId());
-        List<OrderItem> items = new ArrayList<>();
-        itemsDto.forEach(dto -> {
-            OrderItem entity = dataMapper.toEntity(dto);
-            Book book = dataMapper.toEntity(bookDao.find(dto.getBookId()));
-            entity.setBook(book);
-            items.add(entity);
-        });
-        order.setOrderItems(items);
-        return order;
+        return false;
     }
 }

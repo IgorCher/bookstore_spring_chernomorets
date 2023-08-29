@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookRepository {
 
-    Book find(long id);
+    Book find(Long id);
 
     List<Book> findAll();
 
@@ -14,11 +14,9 @@ public interface BookRepository {
 
     Book findByIsbn(String isbn);
 
-    Book create(Book entity);
+    Book save(Book entity);
 
-    Book update(Book entity);
+    boolean delete(Long id);
 
-    boolean delete(long id);
-
-    long countAll();
+    Long countAll();
 }
