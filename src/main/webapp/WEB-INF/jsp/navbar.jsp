@@ -7,22 +7,22 @@
   </head>
   <body>
     <h1>
-      <a href="controller?command=users">
+      <a href="/users">
         <button>All users</button>
       </a>
-      <a href="controller?command=books">
+      <a href="/books">
         <button>All books</button>
       </a>
-      <a href="controller?command=create_book_form">
+      <a href="/books/create">
         <button>Add book</button>
       </a>
-      <a href="controller?command=create_user_form">
+      <a href="/users/create">
         <button>Add user</button>
       </a>
-      <a href="controller?command=orders">
-         <button>Orders</button>
+      <a href="/orders">
+        <button>Orders</button>
       </a>
-      <a href="controller?command=home">
+      <a href="/">
         <button>Home</button>
       </a>
     </h1>
