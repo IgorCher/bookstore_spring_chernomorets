@@ -8,9 +8,8 @@
   <body>
     <jsp:include page="navbar.jsp" />
     <h1>Edit user</h1>
-    <form method="post" action="controller">
-      <input name="command" type="hidden" value="edit_user" />
-      <input name="id" type="hidden" value="${requestScope.user.id}" />
+    <form method="post" action="/users/edit">
+      <input name="id" type="hidden" value="${requestScope.user.id}"/>
       <label for="name">Name:</label>
       <input
         id="name"
@@ -22,7 +21,7 @@
       <label for="last_name">Last name:</label>
       <input
         id="last_name"
-        name="last_name"
+        name="lastName"
         type="text"
         value="${requestScope.user.lastName}"
       />
@@ -56,7 +55,7 @@
         <input
           type="radio"
           id="ADMIN"
-          name="role"
+          name="roleDto"
           value="ADMIN"
           <c:if test="${requestScope.user.roleDto eq 'ADMIN'}">checked</c:if>
         />
@@ -66,7 +65,7 @@
         <input
           type="radio"
           id="MANAGER"
-          name="role"
+          name="roleDto"
           value="MANAGER"
           <c:if test="${requestScope.user.roleDto eq 'MANAGER'}">checked</c:if>
         />
@@ -76,7 +75,7 @@
         <input
           type="radio"
           id="CUSTOMER"
-          name="role"
+          name="roleDto"
           value="CUSTOMER"
           <c:if test="${requestScope.user.roleDto eq 'CUSTOMER'}">checked</c:if>
         />
@@ -86,7 +85,7 @@
       <input type="submit" value="UPDATE" />
     </form>
     <p>
-      <a href="controller?command=users">
+      <a href="/users">
         <button>Back to all users</button>
       </a>
     </p>

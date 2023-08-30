@@ -23,18 +23,18 @@
             <td>${counter.count}</td>
             <td>${user.id}</td>
             <td>
-              <a href="controller?command=user&id=${user.id}">${user.email}</a>
+              <a href="/users/${user.id}">${user.email}</a>
             </td>
             <td>${user.name}</td>
             <td>${user.lastName}</td>
             <td>${user.roleDto}</td>
             <td>
-              <a href="controller?command=user_orders&id=${user.id}">
+              <a href="/orders/user_orders/${user.id}">
                 <button>Orders</button>
               </a>
             </td>
             <td>
-              <a href="controller?command=edit_user_form&id=${user.id}">
+              <a href="/users/edit/${user.id}">
                 <button>Edit</button>
               </a>
             </td>

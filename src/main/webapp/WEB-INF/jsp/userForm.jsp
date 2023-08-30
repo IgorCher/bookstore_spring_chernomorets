@@ -7,13 +7,12 @@
   <body>
     <jsp:include page="navbar.jsp" />
     <h1>Create new user</h1>
-    <form method="post" action="controller">
-      <input name="command" type="hidden" value="create_user" />
+    <form method="post" action="/users/create">
       <label for="name">Name:</label>
       <input id="name" name="name" type="text" />
       <br />
       <label for="last_name">Last name:</label>
-      <input id="last_name" name="last_name" type="text" />
+      <input id="last_name" name="lastName" type="text" />
       <br />
       <label for="email">Email:</label>
       <input id="email" name="email" type="email" />
@@ -26,15 +25,15 @@
       <br />
       <legend>Choose user's role</legend>
       <div>
-        <input type="radio" id="ADMIN" name="role" value="ADMIN" />
+        <input type="radio" id="ADMIN" name="roleDto" value="ADMIN" />
         <label for="ADMIN">ADMIN</label>
       </div>
       <div>
-        <input type="radio" id="MANAGER" name="role" value="MANAGER" />
+        <input type="radio" id="MANAGER" name="roleDto" value="MANAGER" />
         <label for="MANAGER">MANAGER</label>
       </div>
       <div>
-        <input type="radio" id="CUSTOMER" name="role" value="CUSTOMER" />
+        <input type="radio" id="CUSTOMER" name="roleDto" value="CUSTOMER" />
         <label for="CUSTOMER">CUSTOMER</label>
       </div>
       <br />
