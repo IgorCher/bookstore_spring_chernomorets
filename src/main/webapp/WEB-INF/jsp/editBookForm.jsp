@@ -8,8 +8,7 @@
   <body>
     <jsp:include page="navbar.jsp" />
     <h1>Edit book</h1>
-    <form method="post" action="controller">
-      <input name="command" type="hidden" value="edit_book" />
+    <form method="post" action="/books/edit">
       <input name="id" type="hidden" value="${requestScope.book.id}" />
       <label for="title">Title:</label>
       <input
@@ -68,7 +67,7 @@
         <input
           id="HARD"
           type="radio"
-          name="cover"
+          name="coverDto"
           value="HARD"
           <c:if test="${requestScope.book.coverDto eq 'HARD'}">checked</c:if>
         />
@@ -78,7 +77,7 @@
         <input
           id="SOFT"
           type="radio"
-          name="cover"
+          name="coverDto"
           value="SOFT"
           <c:if test="${requestScope.book.coverDto eq 'SOFT'}">checked</c:if>
           />
@@ -88,7 +87,7 @@
         <input
           id="OTHER"
           type="radio"
-          name="cover"
+          name="coverDto"
           value="OTHER"
           <c:if test="${requestScope.book.coverDto eq 'OTHER'}">checked</c:if>
           />
@@ -98,7 +97,7 @@
       <input type="submit" value="UPDATE" />
     </form>
       <p>
-        <a href="controller?command=books">
+        <a href="/books">
           <button>Back to all books</button>
         </a>
       </p>

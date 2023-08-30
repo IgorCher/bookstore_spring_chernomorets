@@ -24,14 +24,14 @@
             <td>${counter.count}</td>
             <td>${book.id}</td>
             <td>
-              <a href="controller?command=book&id=${book.id}">${book.title}</a>
+              <a href="/books/${book.id}">${book.title}</a>
             </td>
             <td>${book.author}</td>
             <td>${book.year}</td>
             <td>${book.coverDto}</td>
             <td>${book.price}</td>
             <td>
-              <a href="controller?command=edit_book_form&id=${book.id}">
+              <a href="/books/edit/${book.id}">
                 <button>Edit</button>
               </a>
             </td>

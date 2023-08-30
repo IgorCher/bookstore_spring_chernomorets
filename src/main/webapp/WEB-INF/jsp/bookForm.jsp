@@ -7,8 +7,7 @@
   <body>
     <jsp:include page="navbar.jsp" />
     <h1>Create new book</h1>
-    <form method="post" action="controller">
-      <input name="command" type="hidden" value="create_book" />
+    <form method="post" action="/books/create">
       <label for="title">Title:</label>
       <input id="title" name="title" type="text" required />
       <br />
@@ -29,15 +28,15 @@
       <br />
       <legend>Choose book's cover</legend>
       <div>
-        <input type="radio" id="HARD" name="cover" value="HARD" />
+        <input type="radio" id="HARD" name="coverDto" value="HARD" />
         <label for="HARD">HARD</label>
       </div>
       <div>
-        <input type="radio" id="SOFT" name="cover" value="SOFT" />
+        <input type="radio" id="SOFT" name="coverDto" value="SOFT" />
         <label for="SOFT">SOFT</label>
       </div>
       <div>
-        <input type="radio" id="OTHER" name="cover" value="OTHER" />
+        <input type="radio" id="OTHER" name="coverDto" value="OTHER" />
         <label for="OTHER">OTHER</label>
       </div>
       <br />
