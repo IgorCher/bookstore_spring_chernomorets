@@ -36,7 +36,7 @@
 
     <br />
     <p>
-      <a href="controller?command=orders">
+      <a href="/orders">
         <button>Back</button>
       </a>
     </p>
