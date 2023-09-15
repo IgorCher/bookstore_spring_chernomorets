@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping(value = "/books")
+@RequestMapping("/books")
 public class BookController {
     private final BookService bookService;
 
