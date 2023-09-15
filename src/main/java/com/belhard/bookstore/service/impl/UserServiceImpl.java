@@ -4,12 +4,15 @@ import com.belhard.bookstore.data.entity.User;
 import com.belhard.bookstore.data.repository.UserRepository;
 import com.belhard.bookstore.service.UserService;
 import com.belhard.bookstore.service.dto.UserDto;
+import com.belhard.bookstore.service.exeption.AppException;
+import com.belhard.bookstore.service.exeption.ResourceNotFoundException;
 import com.belhard.bookstore.service.mapper.DataMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -21,11 +24,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getById(long id) {
         log.debug("Service method running");
-        User user = userRepository.find(id);
-        if (user == null) {
-            throw new RuntimeException("User with id: " + id + "not found");
-        }
-        return dataMapper.toDto(user);
+        return userRepository.find(id)
+                .map(dataMapper::toDto)
+                .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " not found"));
     }
 
     @Override
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public UserDto create(UserDto userDto) {
         log.debug("Service method running");
         if (userDto.getEmail() == null && userDto.getLogin() == null && userDto.getPassword() == null) {
-            throw new RuntimeException("Invalid information");
+            throw new AppException("Invalid information");
         }
         User entity = dataMapper.toEntity(userDto);
         User created = userRepository.save(entity);
@@ -52,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public UserDto update(UserDto userDto) {
         log.debug("Service method running");
         if (userDto.getEmail() == null && userDto.getLogin() == null && userDto.getPassword() == null) {
-            throw new RuntimeException("Invalid information");
+            throw new AppException("Invalid information");
         }
         User entity = dataMapper.toEntity(userDto);
         User updated = userRepository.save(entity);
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
     public void delete(long id) {
         log.debug("Service method running");
         if (!userRepository.delete(id)) {
-            throw new RuntimeException("User with id: " + id + "not found");
+            throw new ResourceNotFoundException("User with id: " + id + "not found");
         }
     }
 }
