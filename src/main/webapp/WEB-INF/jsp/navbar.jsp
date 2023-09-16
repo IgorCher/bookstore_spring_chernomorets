@@ -3,28 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Document</title>
   </head>
   <body>
-    <h1>
-      <a href="/users">
-        <button>All users</button>
-      </a>
-      <a href="/books">
-        <button>All books</button>
-      </a>
-      <a href="/books/create">
-        <button>Add book</button>
-      </a>
-      <a href="/users/create">
-        <button>Add user</button>
-      </a>
-      <a href="/orders">
-        <button>Orders</button>
-      </a>
-      <a href="/">
-        <button>Home</button>
-      </a>
-    </h1>
+    <ul>
+      <li><a href="/users">All users</a></li>
+      <li><a href="/books">All books</a></li>
+      <li><a href="/books/create">Add book</a></li>
+      <li><a href="/users/create">Add user</a></li>
+      <li><a href="/orders">Orders</a></li>
+      <li style="float: right; border-left: 1px solid #bbb">
+        <a href="/">Home</a>
+      </li>
+    </ul>
   </body>
 </html>
