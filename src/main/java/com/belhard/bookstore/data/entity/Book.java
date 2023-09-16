@@ -18,7 +18,7 @@ public class Book {
     @Column(name = "author")
     private String author;
     @Column(name = "year")
-    private String year;
+    private int year;
     @Column(name = "price")
     private BigDecimal price;
     @Column(name = "pages")

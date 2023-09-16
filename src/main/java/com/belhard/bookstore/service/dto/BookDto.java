@@ -10,7 +10,7 @@ public class BookDto {
     private Long id;
     private String title;
     private String author;
-    private String year;
+    private int year;
     private BigDecimal price;
     private int pages;
     private String isbn;
