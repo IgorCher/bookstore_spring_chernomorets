@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%@ page
+contentType="text/html;charset=UTF-8" %>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,15 +8,27 @@
     <title>Document</title>
   </head>
   <body>
-    <ul>
-      <li><a href="/users">All users</a></li>
-      <li><a href="/books">All books</a></li>
-      <li><a href="/books/create">Add book</a></li>
-      <li><a href="/users/create">Add user</a></li>
-      <li><a href="/orders">Orders</a></li>
-      <li style="float: right; border-left: 1px solid #bbb">
-        <a href="/">Home</a>
-      </li>
+    <ul class="navigation">
+      <li class="buttons"><a href="/">Home</a></li>
+      <li class="buttons"><a href="/books">Catalog</a></li>
+      <c:if test="${sessionScope.user != null}">
+        <li class="buttons"><a href="/users">Users</a></li>
+        <li class="buttons"><a href="/orders">Orders</a></li>
+        <li class="buttons"><a href="/books/create">Add book</a></li>
+      </c:if>
+      <c:if test="${sessionScope.user == null}">
+        <li class="buttons" style="float: right; border-left: 1px solid #bbb">
+          <a href="/users/create">Sign up</a>
+        </li>
+        <li class="buttons" style="float: right; border-left: 1px solid #bbb">
+          <a href="/login">Sign in</a>
+        </li>
+      </c:if>
+      <c:if test="${sessionScope.user != null}">
+        <li class="buttons" style="float: right; border-left: 1px solid #bbb">
+          <a href="/logout">Sign out</a>
+        </li>
+      </c:if>
     </ul>
   </body>
 </html>

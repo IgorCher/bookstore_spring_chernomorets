@@ -6,7 +6,7 @@
   </head>
   <body>
     <jsp:include page="navbar.jsp" />
-    <h1>All Books</h1>
+    <h1>Books</h1>
     <table>
       <tr>
         <th>#</th>

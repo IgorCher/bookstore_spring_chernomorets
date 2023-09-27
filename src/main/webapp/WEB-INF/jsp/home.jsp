@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%@ page
+contentType="text/html;charset=UTF-8" %>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,7 +10,9 @@
   <body>
     <jsp:include page="navbar.jsp" />
     <h1>The best bookstore you've ever seen</h1>
-    <p>Enjoy!</p>
-    <p>Owner: Individual Entrepreneur Igor Chernomorets</p>
+    <c:if test="${sessionScope.user != null}">
+      <p>Enjoy, mister ${sessionScope.user.lastName}!</p>
+    </c:if>
+    <p>Owner: Individual entrepreneur Igor Chernomorets</p>
   </body>
 </html>
