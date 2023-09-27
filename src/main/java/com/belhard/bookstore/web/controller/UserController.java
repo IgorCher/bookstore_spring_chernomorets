@@ -1,4 +1,4 @@
-package com.belhard.bookstore.web;
+package com.belhard.bookstore.web.controller;
 
 import com.belhard.bookstore.service.UserService;
 import com.belhard.bookstore.service.dto.UserDto;
@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping(value = "/users")
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 

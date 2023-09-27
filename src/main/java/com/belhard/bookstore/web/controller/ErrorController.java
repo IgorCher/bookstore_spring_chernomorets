@@ -1,4 +1,4 @@
-package com.belhard.bookstore.web;
+package com.belhard.bookstore.web.controller;
 
 import com.belhard.bookstore.service.exeption.AppException;
 import com.belhard.bookstore.service.exeption.ResourceNotFoundException;
