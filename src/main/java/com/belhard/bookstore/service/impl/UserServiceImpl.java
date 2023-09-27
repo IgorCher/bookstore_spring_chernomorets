@@ -12,7 +12,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Log4j2
@@ -27,6 +26,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.find(id)
                 .map(dataMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id: " + id + " not found"));
+    }
+
+    @Override
+    public UserDto login(String login, String password) {
+        log.debug("Service method running");
+        return userRepository.findAll().stream()
+                .map(dataMapper::toDto)
+                .filter(user -> user.getLogin().equals(login) && user.getPassword().equals(password))
+                .findFirst()
+                .orElseThrow(() -> new AppException("Incorrect login or password!"));
     }
 
     @Override
