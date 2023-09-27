@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,8 +23,8 @@ public class UserRepositoryImpl implements UserRepository {
     private EntityManager manager;
 
     @Override
-    public User find(Long id) {
-        return manager.find(User.class, id);
+    public Optional<User> find(Long id) {
+        return Optional.ofNullable(manager.find(User.class, id));
     }
 
     @Override
