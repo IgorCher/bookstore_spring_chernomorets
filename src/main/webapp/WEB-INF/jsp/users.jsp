@@ -29,12 +29,12 @@
             <td>${user.lastName}</td>
             <td>${user.roleDto}</td>
             <td>
-              <a href="/orders/user_orders/${user.id}">
+              <a href="/users/${user.id}/orders">
                 <button>Orders</button>
               </a>
             </td>
             <td>
-              <a href="/users/edit/${user.id}">
+              <a href="/users/${user.id}/edit">
                 <button>Edit</button>
               </a>
             </td>

@@ -6,7 +6,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -15,6 +19,7 @@ import java.util.List;
 @Log4j2
 @RequestMapping("/users")
 public class UserController {
+
     private final UserService userService;
 
     @GetMapping("/{id}")
@@ -31,14 +36,14 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/{id}/edit")
     public String editForm(@PathVariable long id, Model model) {
         UserDto userDto = userService.getById(id);
         model.addAttribute("user", userDto);
         return "editUserForm";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/{id}/edit")
     public String edit(@ModelAttribute UserDto userDto) {
         userService.update(userDto);
         return "redirect:/users/" + userDto.getId();
@@ -55,8 +60,8 @@ public class UserController {
         return "redirect:/users/" + created.getId();
     }
 
-    @PostMapping("/delete")
-    public String delete(@RequestParam long id) {
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable long id) {
         userService.delete(id);
         return "redirect:/users";
     }

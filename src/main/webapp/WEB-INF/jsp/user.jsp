@@ -10,13 +10,9 @@
     <p>Login: ${user.login}</p>
     <p>Email: ${user.email}</p>
     <p>Role: ${user.roleDto}</p>
-    <br />
-    <p>
-      <form method="post" action="/users/delete">
-        <input type="hidden" name="id" value="${user.id}"/>
-        <input type="submit"  value="Delete"/>
-      </form>
-    </p>
+    <form method="post" action="/users/delete/${user.id}">
+      <input type="submit" value="Delete" />
+    </form>
     <p>
       <a href="/users">
         <button>Back to all users</button>

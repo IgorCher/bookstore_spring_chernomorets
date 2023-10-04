@@ -8,8 +8,7 @@
   <body>
     <jsp:include page="navbar.jsp" />
     <h1>Edit user</h1>
-    <form method="post" action="/users/edit">
-      <input name="id" type="hidden" value="${requestScope.user.id}"/>
+    <form method="post" action="/users/${requestScope.user.id}/edit">
       <label for="name">Name:</label>
       <input
         id="name"
