@@ -12,6 +12,7 @@ import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -31,6 +32,11 @@ public class AppConfig extends WebMvcConfigurationSupport {
     @Bean
     public TransactionManager transactionManager(EntityManagerFactory factory) {
         return new JpaTransactionManager(factory);
+    }
+
+    @Override
+    protected void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("home");
     }
 
     @Bean
