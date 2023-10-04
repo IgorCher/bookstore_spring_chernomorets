@@ -31,8 +31,13 @@
             <td>${book.coverDto}</td>
             <td>${book.price}</td>
             <td>
-              <a href="/books/edit/${book.id}">
+              <a href="/books/${book.id}/edit">
                 <button>Edit</button>
+              </a>
+            </td>
+            <td>
+              <a href="/cart/add/${book.id}">
+                <button>Add to cart</button>
               </a>
             </td>
           </tr>

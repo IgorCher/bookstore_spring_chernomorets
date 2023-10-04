@@ -11,13 +11,9 @@
     <p>Publication date: ${book.year}</p>
     <p>Price: ${book.price} euro</p>
     <p>ISBN: ${book.isbn}</p>
-    <br />
-    <p>
-      <form method="post" action="/books/delete">
-        <input type="hidden" name="id" value="${book.id}"/>
-        <input type="submit"  value="Delete"/>
-      </form>
-    </p>
+    <form method="post" action="/books/${book.id}/delete">
+      <input type="submit" value="Delete" />
+    </form>
     <p>
       <a href="/books">
         <button>Back to all books</button>

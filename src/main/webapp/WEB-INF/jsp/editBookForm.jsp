@@ -8,8 +8,7 @@
   <body>
     <jsp:include page="navbar.jsp" />
     <h1>Edit book</h1>
-    <form method="post" action="/books/edit">
-      <input name="id" type="hidden" value="${requestScope.book.id}" />
+    <form method="post" action="/books/${requestScope.book.id}/edit">
       <label for="title">Title:</label>
       <input
         id="title"
