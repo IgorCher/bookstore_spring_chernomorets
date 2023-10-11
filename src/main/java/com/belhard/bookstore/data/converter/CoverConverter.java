@@ -13,7 +13,6 @@ public class CoverConverter implements AttributeConverter<Book.Cover,Integer> {
             case SOFT -> 1;
             case HARD -> 2;
             case OTHER -> 3;
-            default -> throw new IllegalArgumentException();
         };
     }
 

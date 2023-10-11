@@ -13,7 +13,6 @@ public class RoleConverter implements AttributeConverter<User.Role, Integer> {
             case ADMIN -> 1;
             case MANAGER -> 2;
             case CUSTOMER -> 3;
-            default -> throw new IllegalArgumentException();
         };
     }
 
