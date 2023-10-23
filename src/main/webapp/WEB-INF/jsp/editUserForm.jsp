@@ -54,9 +54,9 @@
         <input
           type="radio"
           id="ADMIN"
-          name="roleDto"
+          name="role"
           value="ADMIN"
-          <c:if test="${requestScope.user.roleDto eq 'ADMIN'}">checked</c:if>
+          <c:if test="${requestScope.user.role eq 'ADMIN'}">checked</c:if>
         />
         <label for="ADMIN">ADMIN</label>
       </div>
@@ -64,9 +64,9 @@
         <input
           type="radio"
           id="MANAGER"
-          name="roleDto"
+          name="role"
           value="MANAGER"
-          <c:if test="${requestScope.user.roleDto eq 'MANAGER'}">checked</c:if>
+          <c:if test="${requestScope.user.role eq 'MANAGER'}">checked</c:if>
         />
         <label for="MANAGER">MANAGER</label>
       </div>
@@ -74,9 +74,9 @@
         <input
           type="radio"
           id="CUSTOMER"
-          name="roleDto"
+          name="role"
           value="CUSTOMER"
-          <c:if test="${requestScope.user.roleDto eq 'CUSTOMER'}">checked</c:if>
+          <c:if test="${requestScope.user.role eq 'CUSTOMER'}">checked</c:if>
         />
         <label for="CUSTOMER">CUSTOMER</label>
       </div>

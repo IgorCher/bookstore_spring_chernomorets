@@ -27,7 +27,7 @@
             </td>
             <td>${user.name}</td>
             <td>${user.lastName}</td>
-            <td>${user.roleDto}</td>
+            <td>${user.role}</td>
             <td>
               <a href="/users/${user.id}/orders">
                 <button>Orders</button>

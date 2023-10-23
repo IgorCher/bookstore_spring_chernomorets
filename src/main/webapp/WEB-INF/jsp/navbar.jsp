@@ -16,9 +16,10 @@ contentType="text/html;charset=UTF-8" %>
         <li class="buttons"><a href="/orders">Orders</a></li>
         <li class="buttons"><a href="/books/create">Add book</a></li>
       </c:if>
+      <li class="buttons"><a href="/cart">Cart</a></li>
       <c:if test="${sessionScope.user == null}">
         <li class="buttons" style="float: right; border-left: 1px solid #bbb">
-          <a href="/users/create">Sign up</a>
+          <a href="/users/create">Create an account</a>
         </li>
         <li class="buttons" style="float: right; border-left: 1px solid #bbb">
           <a href="/login">Sign in</a>
@@ -26,7 +27,7 @@ contentType="text/html;charset=UTF-8" %>
       </c:if>
       <c:if test="${sessionScope.user != null}">
         <li class="buttons" style="float: right; border-left: 1px solid #bbb">
-          <a href="/logout">Sign out</a>
+          <a href="/logout">Log out</a>
         </li>
       </c:if>
     </ul>

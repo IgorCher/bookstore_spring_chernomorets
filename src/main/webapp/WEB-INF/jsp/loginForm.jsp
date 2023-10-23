@@ -1,16 +1,21 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%@ page
+contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" href="/css/style.css" />
-    <title>Login</title>
+    <title>Authorisation</title>
   </head>
   <body>
     <jsp:include page="navbar.jsp" />
-    <h1>LOGIN</h1>
+    <h1>SIGN IN</h1>
+    <p>
+      <c:if test="${message != null}">${message}</c:if>
+    </p>
     <form class="loginForm" method="post" action="/login">
       <label>Login: <input type="text" name="login" /></label>
       <label>Password: <input type="password" name="password" /></label>
-      <button>Login</button>
+      <button>Sign in</button>
     </form>
     <p>
       <a href="/">

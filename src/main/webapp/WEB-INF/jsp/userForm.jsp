@@ -23,17 +23,19 @@
       <label for="password">Password:</label>
       <input id="password" name="password" type="password" />
       <br />
+      <input name="deleted" type="hidden" value="false" required />
+      <br />
       <legend>Choose user's role</legend>
       <div>
-        <input type="radio" id="ADMIN" name="roleDto" value="ADMIN" />
+        <input type="radio" id="ADMIN" name="role" value="ADMIN" />
         <label for="ADMIN">ADMIN</label>
       </div>
       <div>
-        <input type="radio" id="MANAGER" name="roleDto" value="MANAGER" />
+        <input type="radio" id="MANAGER" name="role" value="MANAGER" />
         <label for="MANAGER">MANAGER</label>
       </div>
       <div>
-        <input type="radio" id="CUSTOMER" name="roleDto" value="CUSTOMER" />
+        <input type="radio" id="CUSTOMER" name="role" value="CUSTOMER" />
         <label for="CUSTOMER">CUSTOMER</label>
       </div>
       <br />

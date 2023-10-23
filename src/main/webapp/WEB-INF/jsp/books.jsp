@@ -28,7 +28,7 @@
             </td>
             <td>${book.author}</td>
             <td>${book.year}</td>
-            <td>${book.coverDto}</td>
+            <td>${book.cover}</td>
             <td>${book.price}</td>
             <td>
               <a href="/books/${book.id}/edit">

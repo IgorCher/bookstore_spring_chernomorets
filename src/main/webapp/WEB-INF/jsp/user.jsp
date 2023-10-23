@@ -9,8 +9,8 @@
     <p>Name: ${user.name} ${user.lastName}</p>
     <p>Login: ${user.login}</p>
     <p>Email: ${user.email}</p>
-    <p>Role: ${user.roleDto}</p>
-    <form method="post" action="/users/delete/${user.id}">
+    <p>Role: ${user.role}</p>
+    <form method="post" action="/users/${user.id}/delete">
       <input type="submit" value="Delete" />
     </form>
     <p>

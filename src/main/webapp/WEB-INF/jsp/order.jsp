@@ -7,7 +7,7 @@
   <body>
     <jsp:include page="navbar.jsp" />
     <h1>Order: ${order.id}</h1>
-    <p>User: ${order.userDto.id}</p>
+    <p>User: ${order.user.id}</p>
     <p>Total cost: ${order.totalCost}</p>
 
     <table>
@@ -16,19 +16,21 @@
         <th>Title</th>
         <th>Author</th>
         <th>Price</th>
+        <th>Quantity</th>
       </tr>
 
       <tr>
         <c:forEach
-          items="${order.orderItemsDto}"
+          items="${order.orderItems}"
           var="orderItem"
           varStatus="counter"
         >
           <tr>
             <td>${counter.count}</td>
-            <td>${orderItem.bookDto.title}</td>
-            <td>${orderItem.bookDto.author}</td>
-            <td>${orderItem.bookDto.price}</td>
+            <td>${orderItem.book.title}</td>
+            <td>${orderItem.book.author}</td>
+            <td>${orderItem.book.price}</td>
+            <td>${orderItem.bookQuantity}</td>
           </tr>
         </c:forEach>
       </tr>

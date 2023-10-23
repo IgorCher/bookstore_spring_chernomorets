@@ -66,9 +66,9 @@
         <input
           id="HARD"
           type="radio"
-          name="coverDto"
+          name="cover"
           value="HARD"
-          <c:if test="${requestScope.book.coverDto eq 'HARD'}">checked</c:if>
+          <c:if test="${requestScope.book.cover eq 'HARD'}">checked</c:if>
         />
         <label for="HARD">HARD</label>
       </div>
@@ -76,9 +76,9 @@
         <input
           id="SOFT"
           type="radio"
-          name="coverDto"
+          name="cover"
           value="SOFT"
-          <c:if test="${requestScope.book.coverDto eq 'SOFT'}">checked</c:if>
+          <c:if test="${requestScope.book.cover eq 'SOFT'}">checked</c:if>
           />
         <label for="SOFT">SOFT</label>
       </div>
@@ -86,9 +86,9 @@
         <input
           id="OTHER"
           type="radio"
-          name="coverDto"
+          name="cover"
           value="OTHER"
-          <c:if test="${requestScope.book.coverDto eq 'OTHER'}">checked</c:if>
+          <c:if test="${requestScope.book.cover eq 'OTHER'}">checked</c:if>
           />
         <label for="OTHER">OTHER</label>
       </div>

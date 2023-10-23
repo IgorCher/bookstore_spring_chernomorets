@@ -26,17 +26,19 @@
       <label for="isbn">ISBN:</label>
       <input id="isbn" name="isbn" type="text" required />
       <br />
+      <input name="deleted" type="hidden" value="false" required />
+      <br />
       <legend>Choose book's cover</legend>
       <div>
-        <input type="radio" id="HARD" name="coverDto" value="HARD" />
+        <input type="radio" id="HARD" name="cover" value="HARD" />
         <label for="HARD">HARD</label>
       </div>
       <div>
-        <input type="radio" id="SOFT" name="coverDto" value="SOFT" />
+        <input type="radio" id="SOFT" name="cover" value="SOFT" />
         <label for="SOFT">SOFT</label>
       </div>
       <div>
-        <input type="radio" id="OTHER" name="coverDto" value="OTHER" />
+        <input type="radio" id="OTHER" name="cover" value="OTHER" />
         <label for="OTHER">OTHER</label>
       </div>
       <br />

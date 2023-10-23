@@ -22,7 +22,7 @@
             <td>
               <a href="/orders/${order.id}">${order.id}</a>
             </td>
-            <td>${order.userDto.id}</td>
+            <td>${order.user.id}</td>
             <td>${order.totalCost}</td>
           </tr>
         </c:forEach>
