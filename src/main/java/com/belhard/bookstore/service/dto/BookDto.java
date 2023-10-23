@@ -8,15 +8,25 @@ import java.math.BigDecimal;
 public class BookDto {
 
     private Long id;
-    private String title;
-    private String author;
-    private int year;
-    private BigDecimal price;
-    private int pages;
-    private String isbn;
-    private CoverDto coverDto;
 
-    public enum CoverDto {
+    private String title;
+
+    private String author;
+
+    private Integer year;
+
+    private BigDecimal price;
+
+    private Integer pages;
+
+    private String isbn;
+
+    private Cover cover;
+
+    private boolean deleted;
+
+    @SuppressWarnings("unused")
+    public enum Cover {
         HARD,
         SOFT,
         OTHER

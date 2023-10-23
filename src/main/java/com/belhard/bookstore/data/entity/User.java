@@ -45,6 +45,9 @@ public class User {
     @Column(name = "role_id")
     private Role role;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     public enum Role {
         ADMIN,
         MANAGER,

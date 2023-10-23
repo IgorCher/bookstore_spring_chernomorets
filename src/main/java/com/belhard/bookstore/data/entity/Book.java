@@ -49,6 +49,9 @@ public class Book {
     @Column(name = "cover_type_id")
     private Cover cover;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     public enum Cover {
         HARD,
         SOFT,
