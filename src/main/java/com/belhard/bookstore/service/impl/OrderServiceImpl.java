@@ -4,8 +4,8 @@ import com.belhard.bookstore.data.entity.Order;
 import com.belhard.bookstore.data.repository.OrderRepository;
 import com.belhard.bookstore.service.OrderService;
 import com.belhard.bookstore.service.dto.OrderDto;
-import com.belhard.bookstore.service.mapper.DataMapper;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,20 +13,22 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
+
     private final OrderRepository orderRepository;
-    private final DataMapper dataMapper;
+
+    private final ModelMapper mapper;
 
     @Override
     public OrderDto getById(Long id) {
         Order order = orderRepository.find(id);
-        return dataMapper.toDto(order);
+        return mapper.map(order, OrderDto.class);
     }
 
     @Override
     public List<OrderDto> getAll() {
         return orderRepository.findAll()
                 .stream()
-                .map(dataMapper::toDto)
+                .map(o -> mapper.map(o, OrderDto.class))
                 .toList();
     }
 
@@ -34,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto> getByUserId(Long userId) {
         return orderRepository.findByUserId(userId)
                 .stream()
-                .map(dataMapper::toDto)
+                .map(o -> mapper.map(o, OrderDto.class))
                 .toList();
     }
 }
