@@ -10,7 +10,7 @@ public interface BookService {
 
     BookDto getById(long id);
 
-    BookDto create(BookDto bookDto);
+    BookDto getByIsbn(String isbn);
 
     BookDto update(BookDto bookDto);
 
