@@ -4,6 +4,8 @@ import com.belhard.bookstore.web.interceptor.MyInterceptor;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableTransactionManagement
 @RequiredArgsConstructor
 public class AppConfig extends WebMvcConfigurationSupport {
+
     private final MyInterceptor myInterceptor;
 
     @Bean
@@ -37,6 +40,7 @@ public class AppConfig extends WebMvcConfigurationSupport {
     @Override
     protected void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");
+        registry.addViewController("/error").setViewName("error");
     }
 
     @Bean
@@ -48,11 +52,20 @@ public class AppConfig extends WebMvcConfigurationSupport {
         return viewResolver;
     }
 
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STRICT);
+        return mapper;
+    }
+
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(myInterceptor)
                 .addPathPatterns("/**");
     }
+
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("css/**")
