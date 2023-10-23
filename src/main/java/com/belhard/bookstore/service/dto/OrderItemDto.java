@@ -6,8 +6,12 @@ import java.math.BigDecimal;
 
 @Data
 public class OrderItemDto {
+
     private Long id;
-    private BookDto bookDto;
+
+    private BookDto book;
+
     private Integer bookQuantity;
+
     private BigDecimal bookPrice;
 }

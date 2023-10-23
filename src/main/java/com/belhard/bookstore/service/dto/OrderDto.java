@@ -7,8 +7,12 @@ import java.util.List;
 
 @Data
 public class OrderDto {
+
     private Long id;
-    private UserDto userDto;
+
+    private UserDto user;
+
     private BigDecimal totalCost;
-    private List<OrderItemDto> orderItemsDto;
+
+    private List<OrderItemDto> orderItems;
 }
