@@ -56,7 +56,8 @@ public class UserController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute UserDto userDto) {
-        UserDto created = userService.create(userDto);
+        userDto.setDeleted(false);
+        UserDto created = userService.update(userDto);
         return "redirect:/users/" + created.getId();
     }
 
